@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070a12">
+<meta name="description" content="A prompt-driven polygon annotation workspace for satellite and aerial imagery using SAM 3 / 3.1, tiled inference, polygon cleanup and LabelMe export.">
+<meta property="og:title" content="SAM 3.1 Annotation Automation | Shashank I M">
+<meta property="og:description" content="A prompt-driven polygon annotation workspace for satellite and aerial imagery using SAM 3 / 3.1, tiled inference, polygon cleanup and LabelMe export.">
+<meta property="og:type" content="article">
+<title>SAM 3.1 Annotation Automation | Shashank I M</title>
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="../index.html">SHASHANK<span>.</span>AI</a>
+    <button class="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#overview">Overview</a><a href="#features">Features</a><a href="#workflow">Workflow</a><a href="#strategies">Two strategies</a><a href="#architecture">Architecture</a><a href="#outputs">Outputs</a><a href="#run">Run locally</a><a href="#quality">Quality & FAQ</a><a class="back" href="../index.html#systems">← Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<header class="phero">
+<div class="container">
+  <div class="crumb"><a href="../index.html">PORTFOLIO</a> / <a href="../index.html#systems">SYSTEMS</a> / <b>SAM 3.1 ANNOTATION</b></div>
+  <div class="eyebrow"><span class="dot"></span> Python Automation · Annotation · Segmentation</div>
+  <h1>SAM 3.1 <span class="gradient">Annotation Automation</span></h1>
+  <p class="lead">A prompt-driven polygon annotation workspace for satellite and aerial imagery. Combine text-guided segmentation, box-guided visual prompts, batch processing, polygon cleanup, visual review and LabelMe export in one Streamlit application.</p>
+  <div class="actions"><a class="btn primary" href="#overview">Explore the project ↓</a><a class="btn" href="../index.html#systems">← All projects</a></div>
+  <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">SAM 3 / 3.1</span><span class="tag">Ultralytics</span><span class="tag">OpenCV</span><span class="tag">Pillow</span><span class="tag">LabelMe JSON</span></div>
+  <div class="stats"><div class='stat'><b>2 modes</b><span>text and visual prompts</span></div><div class='stat'><b>2 scripts</b><span>full-image and tiled inference</span></div><div class='stat'><b>1536 px</b><span>default tile size, 256 px overlap</span></div><div class='stat'><b>JSON+PNG+ZIP</b><span>export formats</span></div></div>
+</div>
+</header>
+
+<section id="overview"><div class="container"><div class="section-label">01 / Overview</div><h2>Prompt-driven polygon annotation</h2><p class="lead-s">Manual polygon annotation is slow for dense or high-resolution imagery. SAM-family models generate initial masks from natural-language class prompts or a drawn bounding box, and the app turns those masks into editable polygon annotations.</p><div class="g3"><article class="card"><div class="icon">⌕</div><h3>Prompt-driven discovery</h3><p>Enter comma-separated class prompts such as <code>ship, airplane, shed</code>. Prompts are parsed and duplicates removed case-insensitively.</p></article><article class="card"><div class="icon">▱</div><h3>Visual guidance</h3><p>Draw a rectangle around an object, assign a label and use the box as a segmentation prompt.</p></article><article class="card"><div class="icon">⬡</div><h3>Polygon-first output</h3><p>Binary masks become simplified contour polygons with configurable minimum-area filtering, ready for LabelMe JSON.</p></article></div></div></section><section id="features"><div class="container"><div class="section-label">02 / Features</div><h2>Features built into the application</h2><div class="g3"><article class="card"><div class="icon">🧠</div><h3>Model selection</h3><p>Choose between configured SAM 3 and SAM 3.1 checkpoints, and pick automatic device placement, GPU 0, GPU 1 or CPU.</p><span class="badge">Inference</span></article><article class="card"><div class="icon">🗂️</div><h3>Multi-image uploads</h3><p>Upload JPG, JPEG, PNG, BMP, WEBP, TIF or TIFF images and run text prompting across the batch.</p><span class="badge">Batch</span></article><article class="card"><div class="icon">🧹</div><h3>Polygon cleanup</h3><p>Filter tiny contours and use same-label overlap and containment heuristics to remove duplicates or reconcile tile fragments.</p><span class="badge">Quality</span></article><article class="card"><div class="icon">🎨</div><h3>Stable class colours</h3><p>Each label gets a deterministic colour. Overlays show filled regions, outlines and class names with label counts.</p><span class="badge">Review</span></article><article class="card"><div class="icon">✏️</div><h3>Correct the results</h3><p>Rename polygon labels or remove inaccurate polygons from the review panel before export.</p><span class="badge">Editing</span></article><article class="card"><div class="icon">📦</div><h3>Portable outputs</h3><p>Download LabelMe JSON and PNG overlays per image, or the whole batch as one ZIP.</p><span class="badge">Export</span></article></div></div></section><section id="workflow"><div class="container"><div class="section-label">03 / Workflow</div><h2>End-to-end workflow</h2><p class="lead-s">From raw imagery to reviewable annotation assets, with a human reviewer in the loop.</p><div class="steps s5"><div class="step"><span class="n">STEP 01</span><b>Upload images</b><p>Load one or more source images into the Streamlit session.</p></div><div class="step"><span class="n">STEP 02</span><b>Choose prompts</b><p>Enter text classes or draw a bounding box around an object.</p></div><div class="step"><span class="n">STEP 03</span><b>Segment</b><p>Run the selected model and receive predicted masks.</p></div><div class="step"><span class="n">STEP 04</span><b>Build polygons</b><p>Extract contours, simplify boundaries, filter small regions and reconcile duplicates.</p></div><div class="step"><span class="n">STEP 05</span><b>Review & export</b><p>Inspect overlays, fix labels, remove errors, then download JSON / PNG / ZIP.</p></div></div></div></section><section id="strategies"><div class="container"><div class="section-label">04 / Inference</div><h2>Two inference strategies</h2><p class="lead-s">Two variants balance speed, memory use and large-image coverage.</p><div class="g2"><article class="card"><h3>Speed-focused full-image mode</h3><p><code>sam_single_shot.py</code></p><ul class="bullets"><li>Sends the complete image to the model without tiling.</li><li>Submits the parsed text prompts together for each image.</li><li>Fewer passes and simpler orchestration.</li><li>Useful when the image fits in available RAM and VRAM.</li></ul><div class="callout warn">Large images may need significant GPU memory, and small-object detail is harder to preserve.</div></article><article class="card"><h3>High-resolution tiled mode</h3><p><code>sam_tiles.py</code></p><ul class="bullets"><li>Uses 1536 px tiles with 256 px overlap by default.</li><li>Can add a downscaled full-image context pass for large images.</li><li>Maps tile-local polygon coordinates back to the source image.</li><li>Reconciles same-label overlaps across tiles and context predictions.</li></ul><div class="callout warn">Tiling improves local detail but adds inference time. Reconstruction is heuristic and needs visual QA.</div></article></div><div class="table-wrap" style="margin-top:18px"><table><thead><tr><th>Setting</th><th>Default in tiled script</th><th>Purpose</th></tr></thead><tbody><tr><td>Tile size</td><td>1536 px</td><td>High-resolution processing region</td></tr><tr><td>Tile overlap</td><td>256 px</td><td>Reduces gaps at tile boundaries</td></tr><tr><td>Direct-image threshold</td><td>1024 px</td><td>Small images can be processed directly</td></tr><tr><td>Context maximum side</td><td>1536 px</td><td>Downscaled global context resolution</td></tr><tr><td>Text confidence threshold</td><td>0.30</td><td>Initial minimum confidence for text predictions</td></tr><tr><td>Minimum polygon area</td><td>2 px²</td><td>Filters tiny contours</td></tr></tbody></table></div></div></section><section id="architecture"><div class="container"><div class="section-label">05 / Architecture</div><h2>Implementation and architecture</h2><p class="lead-s">A compact Python application built around Streamlit, Ultralytics SAM APIs, OpenCV contour geometry and LabelMe-style annotation structures.</p><div class="g2"><article class="card"><h3>Core components</h3><ul class="bullets"><li><b>Streamlit:</b> upload, controls, progress, review and downloads.</li><li><b>SAM3SemanticPredictor:</b> text-prompt semantic segmentation.</li><li><b>Ultralytics SAM:</b> box-guided visual segmentation.</li><li><b>OpenCV + NumPy:</b> contours, simplification, mask overlap calculations.</li><li><b>Pillow:</b> image decoding and translucent overlay rendering.</li><li><b>Session state:</b> keeps each image's annotations during the session.</li></ul></article><article class="card"><h3>Polygon processing</h3><ol class="bullets"><li>Convert each mask to a binary array.</li><li>Extract external contours.</li><li>Drop contours below the minimum area.</li><li>Simplify contour vertices with polygon approximation.</li><li>Keep contours with at least three points.</li><li>For tiled inference, restore global coordinates and reconcile overlapping same-label polygons.</li></ol></article></div><div class="code-title">High-level data flow</div><pre>Image upload
+  ├─ Text prompt ──&gt; SAM3SemanticPredictor ─┐
+  └─ Box prompt ───&gt; Ultralytics SAM ──────┤
+                                           v
+                                    Segmentation masks
+                                           |
+                                OpenCV contours / polygons
+                                           |
+                           filter + deduplicate / merge overlaps
+                                           |
+                                review overlay + label list
+                                           |
+                           LabelMe JSON + PNG + ZIP download</pre></div></section><section id="outputs"><div class="container"><div class="section-label">06 / Outputs</div><h2>Outputs and annotation format</h2><p class="lead-s">The export is inspectable and portable. The JSON references the original image filename; image pixels are not embedded.</p><div class="g2"><article class="card"><h3>LabelMe-compatible JSON</h3><p>Each file holds image metadata and a <code>shapes</code> list of labelled polygons.</p><pre>{
+  "version": "5.5.0",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "ship",
+      "points": [[120, 80], [190, 92], [175, 130]],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {},
+      "mask": null
+    }
+  ],
+  "imagePath": "scene.jpg",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1920
+}</pre><p class="muted" style="margin-top:10px;font-size:13px">Example coordinates are illustrative.</p></article><article class="card"><h3>Overlay preview</h3><p>Overlays make it easier to spot false positives, missed objects, merged regions and wrong labels before annotations are used downstream.</p><div class="gallery"><figure class="shot"><button type="button" data-full="../images/sam3-annotation/annotation-overlay.png" aria-label="View Annotation overlay larger"><img src="../images/sam3-annotation/annotation-overlay.png" alt="Segmentation overlay" data-name="images/sam3-annotation/annotation-overlay.png" loading="lazy"></button><figcaption><strong>Annotation overlay</strong><span>An exported segmentation overlay from the Streamlit review panel.</span></figcaption></figure></div></article></div><div class="g3 mt"><article class="card"><h3>Per-image JSON</h3><p>A LabelMe-compatible annotation file for each image.</p></article><article class="card"><h3>PNG overlay</h3><p>A visual of the current polygons over the source image.</p></article><article class="card"><h3>Batch ZIP</h3><p>JSON files and overlays for the whole batch in one archive.</p></article></div></div></section><section id="run"><div class="container"><div class="section-label">07 / Run locally</div><h2>Run it on your machine</h2><p class="lead-s">You need a compatible Python environment and an accessible SAM checkpoint.</p><div class="g2"><article class="card"><h3>1. Install dependencies</h3><pre>python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install streamlit streamlit-drawable-canvas \
+  opencv-python numpy pillow ultralytics</pre><p class="muted" style="margin-top:10px;font-size:13px">Install a PyTorch build that matches your CPU/GPU. SAM 3.1 predictor support depends on the Ultralytics version.</p></article><article class="card"><h3>2. Place checkpoints</h3><p>Paths are configurable in the app sidebar. Use checkpoints you are authorized to access and redistribute.</p><pre>~/AI_annotation/
+├── sam3.pt
+└── models/
+    └── sam3.1_multiplex.pt</pre></article></div><div class="code-title">3. Launch a variant</div><pre># Full-image, speed-focused workflow
+streamlit run sam_single_shot.py
+
+# Tiled high-resolution workflow
+streamlit run sam_tiles.py</pre></div></section><section id="quality"><div class="container"><div class="section-label">08 / Quality control</div><h2>Quality control, limitations and FAQ</h2><p class="lead-s">The pipeline accelerates annotation, but model output and geometry heuristics are not a substitute for review.</p><div class="g2"><article class="card"><h3>Review before training</h3><ul class="bullets"><li>Check false positives and missed objects.</li><li>Inspect boundaries on small or crowded objects.</li><li>Look for merged adjacent instances and duplicate polygons.</li><li>Confirm each polygon has the intended class label.</li></ul></article><article class="card"><h3>Known limitations</h3><ul class="bullets"><li>Full-image inference can use substantial VRAM.</li><li>Tiled inference adds runtime and overlap-handling complexity.</li><li>Contour simplification may lose fine boundary detail.</li><li>External contours do not encode interior holes as rings.</li><li>Session annotations are not persisted in a database.</li><li>JSON uses <code>imageData: null</code>, so keep source images available.</li></ul></article></div><div class="mt"><details><summary>Which script should I use?</summary><p>Use <code>sam_single_shot.py</code> when the full image fits comfortably in memory and speed matters. Use <code>sam_tiles.py</code> for larger images where tile-level detail and context reconstruction help.</p></details><details><summary>Does the application guarantee correct polygons?</summary><p>No. The model generates candidate masks. Inspect overlays and correct incorrect or incomplete polygons before treating them as training annotations.</p></details><details><summary>Can I use a GPU?</summary><p>Yes, when PyTorch, the checkpoint, the driver and the Ultralytics version are compatible. The device selector offers automatic, GPU 0, GPU 1 or CPU.</p></details><details><summary>Can I publish the checkpoint files with the code?</summary><p>Only if the model terms permit redistribution. Keep large or restricted weights out of public repositories and document the checkpoint setup instead.</p></details></div></div></section>
+
+<section>
+<div class="container">
+  <div class="pj-nav"><a href="duplicate-remover.html"><small>← Previous project</small><b>MobileNet + FAISS Duplicate Remover</b></a><a class="next" href="../index.html#systems"><small>Back to</small><b>All projects →</b></a></div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="cta">
+    <div class="section-label">Let's build</div>
+    <h2>Have a repetitive workflow? Let's automate it with Python and AI.</h2>
+    <p>Interested in Python automation, AI automation or AI agent work? I'd be glad to talk.</p>
+    <div class="contact-row">
+      <a class="btn primary" href="mailto:imshashankmukri@gmail.com">imshashankmukri@gmail.com</a>
+      <a class="btn" href="https://github.com/ShashankIM" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="../index.html#contact">Back to portfolio</a>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div>© <span id="year"></span> Shashank I M · Python Automation Engineer</div>
+  <div style="margin-top:5px">SAM 3.1 Annotation Automation · Project case study</div>
+</div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded screenshot"><button class="lightbox-close" type="button" aria-label="Close image">×</button><img id="lightbox-image" src="" alt="Expanded screenshot"></div>
+<button class="backtop" id="backtop" aria-label="Back to top">↑</button>
+<script src="../assets/project.js"></script>
+</body>
+</html>

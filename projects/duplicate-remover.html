@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070a12">
+<meta name="description" content="A Python image deduplication pipeline combining MD5 hashing, MobileNetV3 feature extraction and FAISS similarity clustering.">
+<meta property="og:title" content="MobileNet + FAISS Duplicate Remover | Shashank I M">
+<meta property="og:description" content="A Python image deduplication pipeline combining MD5 hashing, MobileNetV3 feature extraction and FAISS similarity clustering.">
+<meta property="og:type" content="article">
+<title>MobileNet + FAISS Duplicate Remover | Shashank I M</title>
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="../index.html">SHASHANK<span>.</span>AI</a>
+    <button class="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#overview">Overview</a><a href="#features">Techniques</a><a href="#pipeline">Pipeline</a><a href="#technical">Technical details</a><a href="#usage">Usage</a><a href="#limits">Considerations</a><a class="back" href="../index.html#systems">← Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<header class="phero">
+<div class="container">
+  <div class="crumb"><a href="../index.html">PORTFOLIO</a> / <a href="../index.html#systems">SYSTEMS</a> / <b>DUPLICATE REMOVER</b></div>
+  <div class="eyebrow"><span class="dot"></span> Python Automation · Dataset Cleanup</div>
+  <h1>MobileNet <span class="gradient">Duplicate Remover</span></h1>
+  <p class="lead">A Python image-deduplication pipeline that detects byte-for-byte duplicates and groups visually similar images using MD5 hashing, MobileNetV3-Small feature embeddings and FAISS nearest-neighbour search.</p>
+  <div class="actions"><a class="btn primary" href="#overview">Explore the project ↓</a><a class="btn" href="../index.html#systems">← All projects</a></div>
+  <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">MobileNetV3-Small</span><span class="tag">FAISS</span><span class="tag">NumPy</span><span class="tag">Pillow</span></div>
+  <div class="stats"><div class='stat'><b>3</b><span>outputs: unique, duplicates, similar</span></div><div class='stat'><b>576-d</b><span>MobileNetV3-Small embeddings</span></div><div class='stat'><b>GPU or CPU</b><span>same workflow either way</span></div><div class='stat'><b>64</b><span>default batch size</span></div></div>
+</div>
+</header>
+
+<section id="overview"><div class="container"><div class="section-label">01 / Overview</div><h2>Cleaner datasets. Less manual review.</h2><div class="g2"><div><p class="muted">Computer-vision datasets often contain repeated files and near-duplicate frames. They waste storage and review time and can affect dataset quality. This project automates an initial cleanup pass by combining exact file hashing with deep-learning-based visual feature comparison.</p><p class="muted">The script scans image files recursively, extracts features from candidate images, searches for nearby feature vectors and organizes the files into output categories while preserving their relative subfolder structure.</p><div class="callout "><b>Important:</b> similarity grouping is an automated aid, not a guarantee that grouped images are true duplicates. Review the output before deleting or excluding images from a training set.</div></div><article class="card"><h3>Output at a glance</h3><pre>dataset/
+├── train/ · test/ · other source folders
+└── output/
+    ├── unique/       # representative image per cluster
+    ├── duplicates/   # exact binary duplicates
+    └── similar/      # visually similar images</pre></article></div></div></section><section id="features"><div class="container"><div class="section-label">02 / Capabilities</div><h2>Three techniques working together</h2><p class="lead-s">A fast exact-match stage runs first, then visual feature extraction and similarity clustering handle the remaining candidates.</p><div class="g3"><article class="card"><div class="icon">#</div><h3>Exact duplicate detection</h3><p>MD5 hashes identify files with identical binary content. Repeats move to the <code>duplicates</code> folder.</p></article><article class="card"><div class="icon">◈</div><h3>Visual feature extraction</h3><p>A pretrained MobileNetV3-Small produces 576-dimensional vectors from RGB images resized to 224 × 224.</p></article><article class="card"><div class="icon">⌘</div><h3>Similarity search with FAISS</h3><p>FAISS runs L2 nearest-neighbour search. A connected-component pass groups images under the distance threshold.</p></article><article class="card"><div class="icon">▦</div><h3>Batch processing</h3><p>Images are processed in configurable batches to balance throughput and memory.</p></article><article class="card"><div class="icon">↗</div><h3>CPU or CUDA</h3><p>CUDA is selected automatically when PyTorch reports it available; otherwise the script runs on CPU.</p></article><article class="card"><div class="icon">▤</div><h3>Folder structure preserved</h3><p>Files move into categorized output folders while keeping their relative paths.</p></article></div></div></section><section id="pipeline"><div class="container"><div class="section-label">03 / Workflow</div><h2>End-to-end processing pipeline</h2><p class="lead-s">Exact repeats are removed before spending compute on visual similarity.</p><div class="steps s3"><div class="step"><span class="n">STAGE 01</span><b>MD5 hashing</b><p>Recursively scan supported images, hash each file and separate exact binary duplicates.</p></div><div class="step"><span class="n">STAGE 02</span><b>MobileNetV3 embeddings</b><p>Load the pretrained model, drop its classifier, resize and normalize each image, then extract L2-normalized vectors.</p></div><div class="step"><span class="n">STAGE 03</span><b>FAISS + graph clustering</b><p>Search up to 10 neighbours, connect candidates under the threshold and find connected components with breadth-first search.</p></div></div></div></section><section id="technical"><div class="container"><div class="section-label">04 / Technical details</div><h2>Implementation at a glance</h2><div class="g2"><article class="card"><h3>Core configuration</h3><div class="table-wrap"><table><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>Model</td><td>MobileNetV3-Small (pretrained Torchvision weights)</td></tr><tr><td>Embedding size</td><td>576 dimensions per image</td></tr><tr><td>Input transform</td><td>RGB, 224 × 224, ImageNet normalization</td></tr><tr><td>Batch size</td><td>64 by default</td></tr><tr><td>Nearest neighbours</td><td>Up to 10 (including the query image)</td></tr><tr><td>Similarity threshold</td><td>0.08 by default; tune for your dataset</td></tr><tr><td>Supported formats</td><td>PNG, JPG, JPEG, WebP, BMP</td></tr></tbody></table></div></article><article class="card"><h3>Technology stack</h3><ul class="bullets"><li><b>Python</b>: orchestration and file operations</li><li><b>hashlib</b>: MD5 hashes for exact matching</li><li><b>PyTorch + Torchvision</b>: model loading and inference</li><li><b>Pillow</b>: image loading and RGB conversion</li><li><b>NumPy</b>: embedding normalization and arrays</li><li><b>FAISS</b>: nearest-neighbour search</li><li><b>tqdm</b>: progress indicators</li></ul><div class="code-title">Dependencies</div><pre>pip install torch torchvision faiss-cpu pillow numpy tqdm</pre></article></div><div class="callout "><b>Threshold tuning:</b> lower values make grouping stricter, higher values more permissive. Validate on a representative sample, since the implementation uses L2 distance between normalized vectors.</div></div></section><section id="usage"><div class="container"><div class="section-label">05 / Usage</div><h2>Run it on your dataset</h2><div class="g2"><div><p class="muted">Install the dependencies, set the dataset path in the configuration section of the script and run it. The default points to a local directory, so change <code>DATASET_DIR</code> on another machine.</p><pre>python MobileNet_duplicate_remover.py</pre></div><article class="card"><h3>Practical safeguards</h3><ul class="bullets"><li>Back up the dataset first, because the script moves files.</li><li>Start with a small folder and inspect all three output categories.</li><li>Check threshold behaviour on true and false matches.</li><li>Reduce <code>BATCH_SIZE</code> if GPU memory is limited.</li><li>Keep annotations and image paths aligned when cleaning ML datasets.</li></ul></article></div></div></section><section id="limits"><div class="container"><div class="section-label">06 / Considerations</div><h2>What to know before using it at scale</h2><div class="g3"><article class="card"><div class="icon">≈</div><h3>Similarity is approximate</h3><p>Feature similarity does not prove two images are duplicates. Review clusters before making dataset decisions.</p></article><article class="card"><div class="icon">⏱</div><h3>Search cost grows</h3><p>FAISS <code>IndexFlatL2</code> is exact brute-force search, which gets expensive as the dataset grows.</p></article><article class="card"><div class="icon">📁</div><h3>File movement matters</h3><p>The script moves files and preserves relative paths. Verify output and any annotation files before training.</p></article></div></div></section>
+
+<section>
+<div class="container">
+  <div class="pj-nav"><a href="employee-tracker.html"><small>← Previous project</small><b>Employee Tracker + MCP</b></a><a class="next" href="sam3-annotation.html"><small>Next project →</small><b>SAM 3.1 Annotation Automation</b></a></div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="cta">
+    <div class="section-label">Let's build</div>
+    <h2>Have a repetitive workflow? Let's automate it with Python and AI.</h2>
+    <p>Interested in Python automation, AI automation or AI agent work? I'd be glad to talk.</p>
+    <div class="contact-row">
+      <a class="btn primary" href="mailto:imshashankmukri@gmail.com">imshashankmukri@gmail.com</a>
+      <a class="btn" href="https://github.com/ShashankIM" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="../index.html#contact">Back to portfolio</a>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div>© <span id="year"></span> Shashank I M · Python Automation Engineer</div>
+  <div style="margin-top:5px">MobileNet + FAISS Duplicate Remover · Project case study</div>
+</div>
+</footer>
+
+
+<button class="backtop" id="backtop" aria-label="Back to top">↑</button>
+<script src="../assets/project.js"></script>
+</body>
+</html>

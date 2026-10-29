@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070a12">
+<meta name="description" content="A Flask, SQLite, Docker and MCP project for employee work logs, task management, audit trails and controlled admin automation.">
+<meta property="og:title" content="Employee Tracker + MCP | Shashank I M">
+<meta property="og:description" content="A Flask, SQLite, Docker and MCP project for employee work logs, task management, audit trails and controlled admin automation.">
+<meta property="og:type" content="article">
+<title>Employee Tracker + MCP | Shashank I M</title>
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="../index.html">SHASHANK<span>.</span>AI</a>
+    <button class="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#overview">Overview</a><a href="#features">Features</a><a href="#architecture">Architecture</a><a href="#gallery">Screenshots</a><a href="#security">Security</a><a href="#workflow">Example workflow</a><a class="back" href="../index.html#systems">← Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<header class="phero">
+<div class="container">
+  <div class="crumb"><a href="../index.html">PORTFOLIO</a> / <a href="../index.html#systems">SYSTEMS</a> / <b>EMPLOYEE TRACKER</b></div>
+  <div class="eyebrow"><span class="dot"></span> Python Automation · Full-stack + MCP</div>
+  <h1>Employee Tracker<br><span class="gradient">with MCP Admin Interface</span></h1>
+  <p class="lead">A centralized work-tracking and task-management platform with role-based dashboards, activity auditing, monthly reporting and a controlled Model Context Protocol (MCP) interface for admin workflows.</p>
+  <div class="actions"><a class="btn primary" href="#overview">Explore the project ↓</a><a class="btn" href="../index.html#systems">← All projects</a></div>
+  <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">SQLite</span><span class="tag">MCP</span><span class="tag">Docker</span><span class="tag">Flask-SocketIO</span></div>
+  <div class="stats"><div class='stat'><b>29</b><span>MCP tools for users, tasks, logs, analytics</span></div><div class='stat'><b>3</b><span>access roles</span></div><div class='stat'><b>2</b><span>runtime services</span></div><div class='stat'><b>0</b><span>arbitrary SQL tools exposed</span></div></div>
+</div>
+</header>
+
+<section id="overview"><div class="container"><div class="section-label">01 / Overview</div><h2>Make team work visible, organized and auditable.</h2><p class="lead-s">Daily work logs, assigned tasks, employee administration and activity history live in one internal tool. A separate MCP service exposes selected operations through predefined tools instead of arbitrary database commands.</p><div class="g2"><article class="card"><h3>Problem it addresses</h3><p>Teams need a consistent way to record daily work, assign follow-ups, review missing submissions and understand changes across users and tasks without relying on manual status updates.</p></article><article class="card"><h3>Project approach</h3><ul class="checklist"><li>Role-based experiences for employees, managers and administrators.</li><li>Centralized user, task and audit records in SQLite.</li><li>Monthly database shards for work history and activity records.</li><li>A dedicated MCP service for selected admin and reporting workflows.</li><li>Docker-based services for repeatable deployment.</li></ul></article></div></div></section><section id="features"><div class="container"><div class="section-label">02 / Capabilities</div><h2>Designed for daily operations and controlled automation.</h2><div class="g3"><article class="card"><div class="icon">👥</div><h3>Role-based access</h3><p>Separate employee, manager and admin capabilities, with user management reserved for administrators.</p></article><article class="card"><div class="icon">📝</div><h3>Daily work logs</h3><p>Employees record completed and remaining work, review earlier entries and keep a daily history.</p></article><article class="card"><div class="icon">🎯</div><h3>Task assignment</h3><p>Managers assign work, set priority, reassign tasks and follow completion status.</p></article><article class="card"><div class="icon">📊</div><h3>Reporting & analytics</h3><p>Daily, weekly and monthly summaries, productivity and workload analysis, and missing-log checks.</p></article><article class="card"><div class="icon">🧾</div><h3>Activity audit trail</h3><p>Logins, work-log changes and task actions are tracked with timestamps and details.</p></article><article class="card"><div class="icon">🔌</div><h3>MCP admin tools</h3><p>Selected user, task, work-log, reporting and health operations exposed through a dedicated MCP server.</p></article></div></div></section><section id="architecture"><div class="container"><div class="section-label">03 / Architecture</div><h2>Two services, one shared data source.</h2><p class="lead-s">The Flask web app and the MCP server run independently while sharing the same SQLite database directory.</p><div class="diagram"><div class="flow"><div class="node">Flask web app<small>port 5000 · dashboards and workflows</small></div><div class="arrow">→</div><div class="node">MCP server<small>port 8000 · curated tool interface</small></div></div><div class="down">↓</div><div class="node">SQLite databases<small>main user/task database + monthly work-log and activity databases</small></div></div><div class="g2 mt"><article class="card"><h3>Technology choices</h3><ul class="bullets"><li><b>Python 3.12</b> for application and MCP logic.</li><li><b>Flask 3+</b> and Flask-SocketIO for the web experience and notifications.</li><li><b>SQLite</b> for portable, lightweight persistence.</li><li><b>MCP Python SDK</b> for tool-based admin and reporting operations.</li><li><b>Docker Compose</b> to build and run the services.</li></ul></article><article class="card"><h3>Architecture note</h3><p>Both services should use the same mounted database directory as the single source of truth. Consider backups, file permissions and SQLite write behaviour when deploying or scaling.</p></article></div></div></section><section id="gallery"><div class="container"><div class="section-label">04 / Gallery</div><h2>Application screenshots</h2><p class="lead-s">Implemented interfaces and example MCP-assisted workflows. Click any image to view it larger.</p><div class="gallery"><figure class="shot"><button type="button" data-full="../images/employee-tracker/admin-dashboard.png" aria-label="View Live team monitor / Admin dashboard larger"><img src="../images/employee-tracker/admin-dashboard.png" alt="Admin dashboard with employee cards and task assignment controls" data-name="images/employee-tracker/admin-dashboard.png" loading="lazy"></button><figcaption><strong>Live team monitor / Admin dashboard</strong><span>Team overview, daily work status and task assignment actions.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/employee-tracker/employee-dashboard.png" aria-label="View Employee dashboard larger"><img src="../images/employee-tracker/employee-dashboard.png" alt="Employee dashboard with date filters and work logs" data-name="images/employee-tracker/employee-dashboard.png" loading="lazy"></button><figcaption><strong>Employee dashboard</strong><span>Personal work history and assigned-task visibility.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/employee-tracker/user-management.png" aria-label="View User management larger"><img src="../images/employee-tracker/user-management.png" alt="User management screen" data-name="images/employee-tracker/user-management.png" loading="lazy"></button><figcaption><strong>User management</strong><span>Admin view for registering accounts and managing roles.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/employee-tracker/activity-audit-trail.png" aria-label="View System activity audit trail larger"><img src="../images/employee-tracker/activity-audit-trail.png" alt="Activity audit trail" data-name="images/employee-tracker/activity-audit-trail.png" loading="lazy"></button><figcaption><strong>System activity audit trail</strong><span>Timestamped activity records for traceability.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/employee-tracker/mcp-configuration.png" aria-label="View MCP integration larger"><img src="../images/employee-tracker/mcp-configuration.png" alt="MCP server configuration" data-name="images/employee-tracker/mcp-configuration.png" loading="lazy"></button><figcaption><strong>MCP integration</strong><span>MCP server registered and shown as running in the client settings.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/employee-tracker/mcp-device-assignment-example.png" aria-label="View Example: task distribution via MCP larger"><img src="../images/employee-tracker/mcp-device-assignment-example.png" alt="Assistant distributing assignments via MCP" data-name="images/employee-tracker/mcp-device-assignment-example.png" loading="lazy"></button><figcaption><strong>Example: task distribution via MCP</strong><span>A sample workflow assigning troubleshooting tasks across team members.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/employee-tracker/mcp-store-monitoring-example.png" aria-label="View Example: operational monitoring query larger"><img src="../images/employee-tracker/mcp-store-monitoring-example.png" alt="Assistant summarizing monitoring status" data-name="images/employee-tracker/mcp-store-monitoring-example.png" loading="lazy"></button><figcaption><strong>Example: operational monitoring query</strong><span>Assistant output querying monitoring-system status.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/employee-tracker/task-assignment-example.png" aria-label="View Task assignment dialog larger"><img src="../images/employee-tracker/task-assignment-example.png" alt="Task assignment modal" data-name="images/employee-tracker/task-assignment-example.png" loading="lazy"></button><figcaption><strong>Task assignment dialog</strong><span>Task title, details and priority controls in the admin interface.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/employee-tracker/docker-services.png" aria-label="View Docker deployment larger"><img src="../images/employee-tracker/docker-services.png" alt="Docker containers running" data-name="images/employee-tracker/docker-services.png" loading="lazy"></button><figcaption><strong>Docker deployment</strong><span>Container listing showing the web app and MCP service running.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/employee-tracker/login-page.png" aria-label="View Login page larger"><img src="../images/employee-tracker/login-page.png" alt="Employee Tracker login page" data-name="images/employee-tracker/login-page.png" loading="lazy"></button><figcaption><strong>Login page</strong><span>Entry point for authenticated users.</span></figcaption></figure></div></div></section><section id="security"><div class="container"><div class="section-label">05 / Security</div><h2>Controlled tools, explicit boundaries.</h2><p class="lead-s">The MCP interface exposes predefined application operations rather than unrestricted database access, and every change leaves an audit trail.</p><div class="g2"><article class="card"><h3>Safeguards implemented</h3><ul class="checklist"><li>Password hashing with Werkzeug.</li><li>Role validation for admin, manager and employee workflows.</li><li>No arbitrary SQL tool exposed through MCP.</li><li>Parameterized SQL for predefined operations.</li><li>Password hashes are never returned by MCP tools.</li><li>Mutating actions are recorded in activity/audit logs.</li></ul></article><article class="card"><h3>Before production deployment</h3><ul class="checklist"><li>Change the default admin credentials and Flask secret key.</li><li>Keep secrets in environment-based configuration.</li><li>Use HTTPS and authentication if MCP is reachable outside a trusted network.</li><li>Restrict exposed Docker ports and access to the database volume.</li><li>Back up the SQLite database directory regularly.</li></ul></article></div></div></section><section id="workflow"><div class="container"><div class="section-label">06 / Example workflow</div><h2>From team status to an assigned action.</h2><div class="steps s3"><div class="step"><span class="n">01</span><b>Ask for status</b><p>Query work-log coverage, task status, activity or other supported reports.</p></div><div class="step"><span class="n">02</span><b>Identify follow-up</b><p>Use the results to find missing submissions, pending work or tasks that need attention.</p></div><div class="step"><span class="n">03</span><b>Assign and audit</b><p>Create or assign tasks through the supported workflow, then keep activity records for review.</p></div></div></div></section>
+
+<section>
+<div class="container">
+  <div class="pj-nav"><a href="sam2-annotation.html"><small>← Previous project</small><b>YOLO → SAM2 → ONNX Pipeline</b></a><a class="next" href="duplicate-remover.html"><small>Next project →</small><b>MobileNet + FAISS Duplicate Remover</b></a></div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="cta">
+    <div class="section-label">Let's build</div>
+    <h2>Have a repetitive workflow? Let's automate it with Python and AI.</h2>
+    <p>Interested in Python automation, AI automation or AI agent work? I'd be glad to talk.</p>
+    <div class="contact-row">
+      <a class="btn primary" href="mailto:imshashankmukri@gmail.com">imshashankmukri@gmail.com</a>
+      <a class="btn" href="https://github.com/ShashankIM" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="../index.html#contact">Back to portfolio</a>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div>© <span id="year"></span> Shashank I M · Python Automation Engineer</div>
+  <div style="margin-top:5px">Employee Tracker + MCP · Project case study</div>
+</div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded screenshot"><button class="lightbox-close" type="button" aria-label="Close image">×</button><img id="lightbox-image" src="" alt="Expanded screenshot"></div>
+<button class="backtop" id="backtop" aria-label="Back to top">↑</button>
+<script src="../assets/project.js"></script>
+</body>
+</html>

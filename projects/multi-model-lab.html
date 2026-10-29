@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070a12">
+<meta name="description" content="A FastAPI and ONNX Runtime browser platform for testing multiple object-detection and image-classification models without writing a script per model.">
+<meta property="og:title" content="Multi-Model Detection + Classification Lab | Shashank I M">
+<meta property="og:description" content="A FastAPI and ONNX Runtime browser platform for testing multiple object-detection and image-classification models without writing a script per model.">
+<meta property="og:type" content="article">
+<title>Multi-Model Detection + Classification Lab | Shashank I M</title>
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="../index.html">SHASHANK<span>.</span>AI</a>
+    <button class="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#overview">Overview</a><a href="#features">Features</a><a href="#modes">Testing modes</a><a href="#workflow">Workflow</a><a href="#gallery">Screenshots</a><a href="#architecture">Architecture</a><a href="#api">API & setup</a><a class="back" href="../index.html#systems">← Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<header class="phero">
+<div class="container">
+  <div class="crumb"><a href="../index.html">PORTFOLIO</a> / <a href="../index.html#systems">SYSTEMS</a> / <b>DETECTION LAB</b></div>
+  <div class="eyebrow"><span class="dot"></span> Python Automation · AI Model Testing</div>
+  <h1>Multi-Model Detection <span class="gradient">+ Classification</span> Testing Lab</h1>
+  <p class="lead">A browser-based model testing lab built with Python and FastAPI. Evaluate multiple ONNX detection and classification models in one workflow, inspect annotated results and validate model behavior without a separate inference script for every model.</p>
+  <div class="actions"><a class="btn primary" href="#overview">Explore the project ↓</a><a class="btn" href="../index.html#systems">← All projects</a></div>
+  <div class="tags"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">ONNX Runtime</span><span class="tag">OpenCV</span><span class="tag">NumPy</span><span class="tag">HTML / CSS / JS</span><span class="tag">CPU / CUDA fallback</span></div>
+  <div class="stats"><div class='stat'><b>3</b><span>testing modes</span></div><div class='stat'><b>5</b><span>backend endpoints</span></div><div class='stat'><b>0</b><span>per-model scripts to write</span></div><div class='stat'><b>CPU/GPU</b><span>CUDA with automatic CPU fallback</span></div></div>
+</div>
+</header>
+
+<section id="overview"><div class="container"><div class="section-label">01 / Overview</div><h2>One testing workspace for multiple vision models</h2><p class="lead-s">Choose images, select detection and/or classification models, adjust confidence thresholds, filter labels and review results in a browser. New models are added through an upload page, paired with their label files.</p><div class="g3"><article class="card"><div class="icon">◉</div><h3>Evaluate multiple models</h3><p>Run selected detection and classification models in the same evaluation workflow, and compare model versions before release.</p></article><article class="card"><div class="icon">▧</div><h3>Visual result review</h3><p>Inspect annotated images, bounding boxes, labels, confidence scores and classification output.</p></article><article class="card"><div class="icon">⇧</div><h3>Manage model assets</h3><p>Upload model files and matching label text files through the model upload page.</p></article></div></div></section><section id="features"><div class="container"><div class="section-label">02 / Capabilities</div><h2>Built for practical model QA</h2><div class="g3"><article class="card"><div class="icon">⌘</div><h3>Dynamic model registry</h3><p>Discovers model files and matching label files from the detection and classification folders.</p></article><article class="card"><div class="icon">⚙</div><h3>Adjustable thresholds</h3><p>Set detection and classification confidence thresholds before running inference.</p></article><article class="card"><div class="icon">☷</div><h3>Label filtering</h3><p>Choose which model labels appear in the displayed results.</p></article><article class="card"><div class="icon">▣</div><h3>Batch image upload</h3><p>Upload several images in the dropzone and review result cards.</p></article><article class="card"><div class="icon">↗</div><h3>CPU / GPU execution</h3><p>Uses ONNX Runtime CUDA when available and falls back to CPU.</p></article><article class="card"><div class="icon">{ }</div><h3>API-driven backend</h3><p>FastAPI endpoints handle model discovery, predictions and model uploads.</p></article></div></div></section><section id="modes"><div class="container"><div class="section-label">03 / Testing modes</div><h2>Three ways to test</h2><p class="lead-s">Pick the workflow that matches the question you want to answer about a model.</p><div class="steps s3"><div class="step"><span class="n">MODE 01</span><b>Detection only</b><p>Run detection models and view bounding boxes, labels, scores and annotated previews.</p></div><div class="step"><span class="n">MODE 02</span><b>Classification only</b><p>Classify the whole image and return the predicted class and score.</p></div><div class="step"><span class="n">MODE 03</span><b>Detect → crop → classify</b><p>Detect objects, crop each region and run selected classifiers on the crops. Results attach to detections.</p></div></div></div></section><section id="workflow"><div class="container"><div class="section-label">04 / Workflow</div><h2>From image upload to annotated result</h2><div class="steps s5"><div class="step"><span class="n">1</span><b>Upload</b><p>Select one or more images in the browser.</p></div><div class="step"><span class="n">2</span><b>Configure</b><p>Choose models, labels and confidence thresholds.</p></div><div class="step"><span class="n">3</span><b>Infer</b><p>FastAPI runs the selected ONNX models via ONNX Runtime.</p></div><div class="step"><span class="n">4</span><b>Process</b><p>Crop detected regions and classify them if requested.</p></div><div class="step"><span class="n">5</span><b>Review</b><p>View labels, scores, crops and annotated previews.</p></div></div></div></section><section id="gallery"><div class="container"><div class="section-label">05 / Gallery</div><h2>The interface</h2><div class="gallery"><figure class="shot"><button type="button" data-full="../images/multi-model-lab/dashboard-screenshot.png" aria-label="View Model testing dashboard larger"><img src="../images/multi-model-lab/dashboard-screenshot.png" alt="Main model testing dashboard" data-name="images/multi-model-lab/dashboard-screenshot.png" loading="lazy"></button><figcaption><strong>Model testing dashboard</strong><span>Model selectors, confidence sliders, label filters and the image upload area.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/multi-model-lab/detection-results.png" aria-label="View Detection output larger"><img src="../images/multi-model-lab/detection-results.png" alt="Annotated object detection output" data-name="images/multi-model-lab/detection-results.png" loading="lazy"></button><figcaption><strong>Detection output</strong><span>An annotated image with bounding boxes, class labels and confidence scores.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/multi-model-lab/classification-results.png" aria-label="View Classification output larger"><img src="../images/multi-model-lab/classification-results.png" alt="Image classification results" data-name="images/multi-model-lab/classification-results.png" loading="lazy"></button><figcaption><strong>Classification output</strong><span>The predicted class and score for a full image or a detected crop.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/multi-model-lab/upload-model.png" aria-label="View Model upload page larger"><img src="../images/multi-model-lab/upload-model.png" alt="Model upload page" data-name="images/multi-model-lab/upload-model.png" loading="lazy"></button><figcaption><strong>Model upload page</strong><span>How model files and matching label files are uploaded and organized.</span></figcaption></figure></div></div></section><section id="architecture"><div class="container"><div class="section-label">06 / Architecture</div><h2>Small, modular and easy to extend</h2><p class="lead-s">The frontend talks to a FastAPI backend. A model registry discovers assets, and the inference layer runs models through ONNX Runtime and prepares outputs for display.</p><div class="g2"><article class="card"><h3>Core components</h3><ul class="bullets"><li><b>Frontend:</b> HTML, CSS and JavaScript browser UI.</li><li><b>API:</b> FastAPI endpoints and request orchestration.</li><li><b>Inference:</b> ONNX Runtime detection and classification wrappers.</li><li><b>Registry:</b> model and label-file discovery.</li><li><b>Image processing:</b> decoding, cropping, drawing and encoding.</li><li><b>Storage:</b> model and label files grouped by task type.</li></ul></article><div><div class="code-title">Project structure</div><pre>benaka_model_testing/
+├── app/
+│   ├── main.py
+│   ├── inference.py
+│   ├── model_registry.py
+│   ├── models.py
+│   └── utils.py
+├── models/
+│   ├── detection/
+│   │   ├── model.onnx
+│   │   └── model.txt
+│   └── classification/
+│       ├── model.onnx
+│       └── model.txt
+├── static/
+│   ├── index.html
+│   ├── app.js
+│   ├── styles.css
+│   └── upload.html
+└── README.md</pre></div></div></div></section><section id="api"><div class="container"><div class="section-label">07 / API and setup</div><h2>Key endpoints and quick start</h2><div class="table-wrap"><table><thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead><tbody><tr><td><code>GET</code></td><td><code>/</code></td><td>Serves the main testing dashboard.</td></tr><tr><td><code>GET</code></td><td><code>/upload</code></td><td>Serves the model upload page.</td></tr><tr><td><code>GET</code></td><td><code>/models</code></td><td>Returns available models and their labels.</td></tr><tr><td><code>POST</code></td><td><code>/predict</code></td><td>Runs inference on uploaded images with selected models and thresholds.</td></tr><tr><td><code>POST</code></td><td><code>/upload_model</code></td><td>Validates and stores a model file and its matching label file.</td></tr></tbody></table></div><div class="code-title">Run locally</div><pre># 1. Create and activate a virtual environment
+python -m venv .venv
+source .venv/bin/activate
+
+# 2. Install dependencies
+pip install fastapi uvicorn onnxruntime opencv-python pillow numpy torchvision pydantic python-multipart
+
+# 3. Start the application
+uvicorn app.main:app --host 0.0.0.0 --port 5000 --reload</pre><div class="g3 mt"><article class="card"><h3>Open dashboard</h3><p><code>http://localhost:5000/</code></p></article><article class="card"><h3>Upload models</h3><p><code>http://localhost:5000/upload</code></p></article><article class="card"><h3>Pair labels correctly</h3><p>Keep each model and label file on the same base name, such as <code>helmet.onnx</code> and <code>helmet.txt</code>.</p></article></div><div class="callout warn">CPU inference is supported everywhere. For GPU execution, check that your ONNX Runtime package and CUDA versions are compatible.</div></div></section>
+
+<section>
+<div class="container">
+  <div class="pj-nav"><a href="dsi-monitoring.html"><small>← Previous project</small><b>DSI Multi-Store Monitoring + MCP</b></a><a class="next" href="sam2-annotation.html"><small>Next project →</small><b>YOLO → SAM2 → ONNX Pipeline</b></a></div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="cta">
+    <div class="section-label">Let's build</div>
+    <h2>Have a repetitive workflow? Let's automate it with Python and AI.</h2>
+    <p>Interested in Python automation, AI automation or AI agent work? I'd be glad to talk.</p>
+    <div class="contact-row">
+      <a class="btn primary" href="mailto:imshashankmukri@gmail.com">imshashankmukri@gmail.com</a>
+      <a class="btn" href="https://github.com/ShashankIM" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="../index.html#contact">Back to portfolio</a>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div>© <span id="year"></span> Shashank I M · Python Automation Engineer</div>
+  <div style="margin-top:5px">Multi-Model Detection + Classification Lab · Project case study</div>
+</div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded screenshot"><button class="lightbox-close" type="button" aria-label="Close image">×</button><img id="lightbox-image" src="" alt="Expanded screenshot"></div>
+<button class="backtop" id="backtop" aria-label="Back to top">↑</button>
+<script src="../assets/project.js"></script>
+</body>
+</html>

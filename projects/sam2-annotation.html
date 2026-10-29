@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070a12">
+<meta name="description" content="A modular pre-annotation pipeline combining YOLO detection, SAM 2.1 polygon refinement, optional ONNX classification and LabelMe JSON export.">
+<meta property="og:title" content="YOLO → SAM2 → ONNX Annotation Pipeline | Shashank I M">
+<meta property="og:description" content="A modular pre-annotation pipeline combining YOLO detection, SAM 2.1 polygon refinement, optional ONNX classification and LabelMe JSON export.">
+<meta property="og:type" content="article">
+<title>YOLO → SAM2 → ONNX Annotation Pipeline | Shashank I M</title>
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="../index.html">SHASHANK<span>.</span>AI</a>
+    <button class="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#overview">Overview</a><a href="#features">Capabilities</a><a href="#workflow">Workflow</a><a href="#models">Model stages</a><a href="#outputs">Outputs</a><a href="#engineering">Engineering</a><a href="#next">Next steps</a><a class="back" href="../index.html#systems">← Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<header class="phero">
+<div class="container">
+  <div class="crumb"><a href="../index.html">PORTFOLIO</a> / <a href="../index.html#systems">SYSTEMS</a> / <b>SAM2 PIPELINE</b></div>
+  <div class="eyebrow"><span class="dot"></span> Python Automation · Annotation Pipeline</div>
+  <h1>Custom SAM 2.1 <span class="gradient">Annotation Automation</span> Pipeline</h1>
+  <p class="lead">A modular pre-annotation workflow that combines YOLO detection, SAM 2.1 polygon refinement, optional ONNX classification and LabelMe-compatible JSON export to accelerate dataset preparation.</p>
+  <div class="actions"><a class="btn primary" href="#overview">Explore the project ↓</a><a class="btn" href="../index.html#systems">← All projects</a></div>
+  <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">SAM 2.1</span><span class="tag">YOLO</span><span class="tag">ONNX Runtime</span><span class="tag">TensorRT</span><span class="tag">OpenCV</span><span class="tag">LabelMe JSON</span></div>
+  <div class="stats"><div class='stat'><b>Review only</b><span>manual polygon drawing becomes QA</span></div><div class='stat'><b>TensorRT→CUDA→CPU</b><span>provider fallback, runs anywhere</span></div><div class='stat'><b>0.40</b><span>detection confidence in the scripts</span></div><div class='stat'><b>1280</b><span>YOLO inference image size</span></div></div>
+</div>
+</header>
+
+<section id="overview"><div class="container"><div class="section-label">01 / Overview</div><h2>From raw images to reviewable polygon annotations</h2><p class="lead-s">A detector proposes candidate objects, SAM refines object boundaries from box prompts and a classifier can attach the semantic label. Annotation JSON and preview images are saved for downstream review.</p><div class="steps"><div class="step"><span class="n">STAGE</span><b>Detection → Mask</b><p>Box-guided segmentation</p></div><div class="step"><span class="n">OUTPUT</span><b>Polygon annotations</b><p>Vertex-based shapes</p></div><div class="step"><span class="n">OPTIONAL</span><b>ONNX classifier</b><p>Inference on object crops</p></div><div class="step"><span class="n">QA</span><b>Human review</b><p>Visual QA remains essential</p></div></div></div></section><section id="features"><div class="container"><div class="section-label">02 / Capabilities</div><h2>Built for practical dataset preparation</h2><div class="g3"><article class="card"><div class="icon">◎</div><h3>SAM 2.1 mask refinement</h3><p>Passes detected boxes to SAM 2.1 and selects the largest valid returned polygon as the candidate mask.</p></article><article class="card"><div class="icon">⌁</div><h3>YOLO integration</h3><p>Supports segmentation-model detections and a custom YOLOv5/v7 detector loading path for project-specific checkpoints.</p></article><article class="card"><div class="icon">▦</div><h3>ONNX classification</h3><p>Preprocesses a crop from the polygon's bounding rectangle and assigns the classifier's label and score.</p></article><article class="card"><div class="icon">▤</div><h3>LabelMe-compatible JSON</h3><p>Exports polygon points, labels, image dimensions and image-path metadata in a LabelMe-style structure.</p></article><article class="card"><div class="icon">◉</div><h3>Visual QA previews</h3><p>Creates colour overlays with polygon outlines and class/confidence labels for inspection.</p></article><article class="card"><div class="icon">↗</div><h3>Nested-folder support</h3><p>The recursive variant processes image-bearing subfolders and mirrors their relative paths under an output root.</p></article></div></div></section><section id="workflow"><div class="container"><div class="section-label">03 / Workflow</div><h2>How the pipeline works</h2><div class="steps"><div class="step"><span class="n">01</span><b>Input images</b><p>Read JPG, JPEG, PNG, BMP or WEBP files from the configured directory.</p></div><div class="step"><span class="n">02</span><b>YOLO detection</b><p>Run inference, apply a confidence threshold and keep only configured target classes.</p></div><div class="step"><span class="n">03</span><b>SAM 2.1 prompt</b><p>Clip the detected box to image bounds and use it as a spatial prompt for mask generation.</p></div><div class="step"><span class="n">04</span><b>Polygon selection</b><p>Choose the largest valid mask polygon and optionally simplify its contour.</p></div><div class="step"><span class="n">05</span><b>Fallback handling</b><p>If SAM fails, use a YOLO mask when available; the custom detector variant can fall back to a box rectangle.</p></div><div class="step"><span class="n">06</span><b>Classification</b><p>Resize and normalize the crop, then run the configured ONNX classifier when enabled.</p></div><div class="step"><span class="n">07</span><b>Annotation export</b><p>Store polygon vertices and class label in a LabelMe-style JSON file.</p></div><div class="step"><span class="n">08</span><b>Preview & review</b><p>Save original and visualization outputs; route images with no accepted object to an undetected folder.</p></div></div><div class="code-title">Pipeline at a glance</div><pre>Image folder
+   ↓
+YOLO detector / segmentation model
+   ↓ class filtering + bounding box
+SAM 2.1 box-prompted segmentation
+   ↓ polygon selection + optional simplification
+Optional ONNX crop classification
+   ↓
+LabelMe-style JSON + visualization + original image
+   ↓
+Undetected folder for images without accepted objects</pre></div></section><section id="models"><div class="container"><div class="section-label">04 / Model stages</div><h2>Composable model responsibilities</h2><div class="table-wrap"><table><thead><tr><th>Component</th><th>Responsibility</th><th>Configuration / note</th></tr></thead><tbody><tr><td><b>YOLO</b></td><td>Candidate object detection and class filtering.</td><td>Checkpoint set with <code>SEG_MODEL_PATH</code>; the vehicle variant uses a custom detector path.</td></tr><tr><td><b>SAM 2.1</b></td><td>Refines object boundaries from bounding-box prompts.</td><td>Scripts configure <code>sam2.1_b.pt</code>.</td></tr><tr><td><b>ONNX classifier</b></td><td>Predicts the semantic class from the object's rectangular crop.</td><td>Model file plus a text label list; input resized to 224 × 224.</td></tr><tr><td><b>OpenCV</b></td><td>Image I/O, preprocessing, contour simplification, overlay rendering.</td><td>BGR images; crops converted to RGB for classification.</td></tr><tr><td><b>PyTorch / ONNX Runtime</b></td><td>Model execution on the selected device and providers.</td><td>GPU support depends on installed drivers and packages.</td></tr></tbody></table></div></div></section><section id="outputs"><div class="container"><div class="section-label">05 / Deliverables</div><h2>Clear outputs for review and downstream tools</h2><div class="g2"><article class="card"><h3>Flat-folder pipeline</h3><p>Used by the flat-folder script variants. Output paths are set in the script.</p><pre>dataset/
+├── images/
+├── segmentations/
+├── visualization/
+└── undetected/</pre></article><article class="card"><h3>Recursive pipeline</h3><p>Preserves nested folder groupings instead of flattening everything into one output directory.</p><pre>&lt;input-name&gt;_annotated/
+└── each image-bearing folder/
+    ├── images/
+    ├── segmentations/
+    ├── visualization/
+    └── undetected/</pre></article></div><div class="g3 mt"><article class="card"><h3><code>label</code></h3><p>Predicted class label from the classifier.</p></article><article class="card"><h3><code>points</code></h3><p>Polygon vertices as x/y coordinate pairs.</p></article><article class="card"><h3><code>shape_type</code></h3><p>Set to <code>polygon</code> for segmentation shapes.</p></article></div></div></section><section id="engineering"><div class="container"><div class="section-label">06 / Engineering</div><h2>Configurable and designed for resilience</h2><div class="g2"><article class="card"><h3>Configuration-driven</h3><p>Model paths, folders, class filters, confidence threshold, image size, GPU ID and polygon simplification are set near the top of each script.</p></article><article class="card"><h3>Graceful fallback strategy</h3><p>SAM failures do not necessarily stop the pipeline. Available YOLO masks serve as a fallback; the custom detector variant can use a rectangle when no mask exists.</p></article><article class="card"><h3>GPU provider selection</h3><p>PyTorch models use the configured CUDA device. ONNX Runtime is configured with TensorRT, CUDA and CPU fallback providers in the GPU path.</p></article><article class="card"><h3>Custom checkpoint support</h3><p>The vehicle script injects the original YOLOv5/v7 repository into Python's import path so custom checkpoint classes resolve, letting old models be reused without retraining.</p></article></div><div class="table-wrap" style="margin-top:18px"><table><thead><tr><th>Setting</th><th>Purpose</th></tr></thead><tbody><tr><td><code>GPU_ID</code></td><td>Selects one CUDA device (e.g. 0 or 1). Work is not distributed across GPUs automatically.</td></tr><tr><td><code>SEG_CONFIDENCE</code></td><td>Configured at 0.40 in the supplied scripts.</td></tr><tr><td><code>YOLO_IMGSZ</code></td><td>Configured at 1280; larger sizes raise compute and memory needs.</td></tr><tr><td><code>SEG_KEEP_CLASSES</code></td><td>Target categories. Person and vehicle variants use different lists.</td></tr><tr><td><code>SAM_SIMPLIFY_EPSILON</code></td><td>Controls OpenCV polygon simplification; 0 disables it.</td></tr><tr><td><code>YOLO_REPO_PATH</code></td><td>Needed by the vehicle variant when the checkpoint requires original YOLOv5/v7 class definitions.</td></tr></tbody></table></div><div class="callout warn"><b>Quality note:</b> generated annotations are pre-annotations, not ground truth. Largest-mask selection is heuristic, classifier crops contain background, and fallback rectangles are not pixel-accurate. Review the visualization outputs before training.</div></div></section><section id="next"><div class="container"><div class="section-label">07 / Next steps</div><h2>Review checklist and further improvements</h2><div class="g2"><article class="card"><h3>Review before training</h3><ul class="bullets"><li>Inspect overlays for missed objects, over-segmentation and inaccurate boundaries.</li><li>Review fallback masks and rectangular polygons separately.</li><li>Validate class names and scores against the intended taxonomy.</li><li>Check polygon coordinates against image dimensions.</li><li>Review undetected images to find detector blind spots.</li></ul></article><article class="card"><h3>Further improvements</h3><ul class="bullets"><li>Annotation review UI to accept, edit or reject polygons.</li><li>Run manifests and resume for interrupted runs.</li><li>Metrics: stage latency, failure rates, model and config versions.</li><li>Multi-GPU workers with per-device model instances.</li></ul></article></div></div></section>
+
+<section>
+<div class="container">
+  <div class="pj-nav"><a href="multi-model-lab.html"><small>← Previous project</small><b>Multi-Model Detection + Classification Lab</b></a><a class="next" href="employee-tracker.html"><small>Next project →</small><b>Employee Tracker + MCP</b></a></div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="cta">
+    <div class="section-label">Let's build</div>
+    <h2>Have a repetitive workflow? Let's automate it with Python and AI.</h2>
+    <p>Interested in Python automation, AI automation or AI agent work? I'd be glad to talk.</p>
+    <div class="contact-row">
+      <a class="btn primary" href="mailto:imshashankmukri@gmail.com">imshashankmukri@gmail.com</a>
+      <a class="btn" href="https://github.com/ShashankIM" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="../index.html#contact">Back to portfolio</a>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div>© <span id="year"></span> Shashank I M · Python Automation Engineer</div>
+  <div style="margin-top:5px">YOLO → SAM2 → ONNX Annotation Pipeline · Project case study</div>
+</div>
+</footer>
+
+
+<button class="backtop" id="backtop" aria-label="Back to top">↑</button>
+<script src="../assets/project.js"></script>
+</body>
+</html>

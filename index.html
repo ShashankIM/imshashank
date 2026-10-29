@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Shashank I M — Python Automation Engineer portfolio. Python automation, AI automation, monitoring systems, computer vision pipelines, AI agents and MCP tools.">
+<title>Shashank I M — Python Automation Engineer</title>
+<style>
+:root{
+  --bg:#070a12;--panel:#0d1220;--panel2:#111827;--text:#edf2ff;--muted:#98a3b8;
+  --line:#202a3d;--accent:#6ee7b7;--accent2:#60a5fa;--purple:#a78bfa;--warn:#fbbf24;
+  --max:1180px;--radius:20px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:
+radial-gradient(circle at 10% 0%,rgba(96,165,250,.13),transparent 30%),
+radial-gradient(circle at 90% 10%,rgba(167,139,250,.12),transparent 30%),
+var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+a{color:inherit;text-decoration:none}.container{width:min(var(--max),calc(100% - 40px));margin:auto}
+.nav{position:sticky;top:0;z-index:20;background:rgba(7,10,18,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;letter-spacing:.04em}.logo span{color:var(--accent)}
+.navlinks{display:flex;gap:22px;color:var(--muted);font-size:14px}.navlinks a:hover{color:#fff}
+.menu{display:none;background:none;border:1px solid var(--line);color:#fff;border-radius:10px;padding:8px}
+.hero{padding:100px 0 70px;position:relative;overflow:hidden}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(110,231,183,.25);background:rgba(110,231,183,.07);color:var(--accent);padding:7px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 15px var(--accent)}
+h1{font-size:clamp(46px,8vw,92px);line-height:.95;letter-spacing:-.065em;margin:25px 0 22px;max-width:1000px}
+.gradient{background:linear-gradient(90deg,#fff 5%,#a7f3d0 45%,#93c5fd 78%,#c4b5fd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:19px;color:#b9c3d6;max-width:800px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin:30px 0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 17px;border-radius:12px;border:1px solid var(--line);font-weight:700;font-size:14px}
+.btn.primary{background:var(--accent);color:#07100d;border-color:var(--accent)}.btn:hover{transform:translateY(-1px)}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:end}
+.signal{border:1px solid var(--line);background:linear-gradient(145deg,rgba(17,24,39,.92),rgba(8,12,22,.9));padding:22px;border-radius:var(--radius);box-shadow:0 20px 60px rgba(0,0,0,.22)}
+.signal-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.terminal{margin-top:18px;font:13px/1.9 ui-monospace,SFMono-Regular,Menlo,monospace;color:#c7d2fe}.green{color:var(--accent)}.blue{color:var(--accent2)}.purple{color:var(--purple)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px}
+.stat{padding:18px;border:1px solid var(--line);border-radius:16px;background:rgba(13,18,32,.72)}
+.stat b{font-size:29px;display:block;letter-spacing:-.04em}.stat span{color:var(--muted);font-size:12px}
+section{padding:70px 0}.section-label{font:700 12px ui-monospace,monospace;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.045em;margin:10px 0 14px}
+.lead{color:var(--muted);max-width:780px}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:22px}.card{background:linear-gradient(145deg,rgba(17,24,39,.9),rgba(10,14,25,.92));border:1px solid var(--line);border-radius:var(--radius);padding:25px}
+.card h3{margin:0 0 8px;font-size:19px}.muted{color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:#c7d2fe;background:#0b1020;padding:1px 6px;border-radius:5px}
+.tag{padding:6px 9px;border:1px solid var(--line);background:#0b1020;border-radius:8px;color:#cbd5e1;font:12px ui-monospace,monospace}
+.timeline{position:relative;margin-top:30px}.timeline:before{content:"";position:absolute;left:9px;top:0;bottom:0;width:1px;background:var(--line)}
+.job{position:relative;padding-left:38px;margin-bottom:35px}.job:before{content:"";position:absolute;left:4px;top:8px;width:11px;height:11px;border:3px solid var(--bg);background:var(--accent);border-radius:50%;box-shadow:0 0 0 1px var(--accent)}
+.job-head{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.job-title{font-weight:800;font-size:20px}.date{color:var(--muted);font:12px ui-monospace,monospace}
+.job ul{margin:13px 0 0;padding-left:20px;color:#c3ccdc}.job li{margin:7px 0}
+.project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
+.project{padding:24px;border:1px solid var(--line);border-radius:18px;background:rgba(13,18,32,.76);transition:.2s}.project:hover{transform:translateY(-3px);border-color:#33415e}
+.project-num{color:var(--accent);font:11px ui-monospace,monospace}.project h3{font-size:21px;margin:8px 0}.project p{color:#aeb9cc;margin:0}.project .impact{margin-top:15px;color:#dbe5f5;font-size:13px}
+.project .impact b{color:#fff}.project-wide{grid-column:span 2}
+.arch{padding:25px;border:1px solid var(--line);border-radius:var(--radius);background:#080d18;overflow:auto;margin-top:25px}
+.arch pre{margin:0;color:#b7c3d7;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace}
+.skillgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.skill{padding:20px;border:1px solid var(--line);border-radius:16px;background:rgba(13,18,32,.7)}.skill b{display:block;margin-bottom:8px}.skill span{color:var(--muted);font-size:14px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}.metric{padding:25px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(145deg,#101827,#0a0f1b)}.metric strong{font-size:38px;letter-spacing:-.05em;color:var(--accent)}.metric p{margin:5px 0 0;color:var(--muted)}
+.learning{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:25px}.course{padding:17px;border:1px solid var(--line);border-radius:14px;background:#0c1220}.course b{font-size:14px}.course small{display:block;color:var(--muted);margin-top:4px}
+.cta{padding:55px;border-radius:26px;border:1px solid rgba(110,231,183,.22);background:radial-gradient(circle at 80% 20%,rgba(96,165,250,.12),transparent 35%),linear-gradient(145deg,#0f1b25,#0b111d)}
+.cta h2{max-width:750px}.cta p{color:#aeb9cc;max-width:700px}.contact-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+footer{border-top:1px solid var(--line);padding:30px 0;color:#718097;font-size:12px}
+.backtop{position:fixed;right:18px;bottom:18px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#101827;color:#fff;display:none}
+@media(max-width:900px){.hero-grid,.about{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.skillgrid,.learning{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.container{width:min(var(--max),calc(100% - 24px))}.navlinks{display:none;position:absolute;top:68px;left:0;right:0;background:#090d17;padding:15px 20px;border-bottom:1px solid var(--line);flex-direction:column}.navlinks.open{display:flex}.menu{display:block}.hero{padding-top:65px}.project-grid{grid-template-columns:1fr}.project-wide{grid-column:auto}.stats,.metrics,.skillgrid,.learning{grid-template-columns:1fr}.cta{padding:28px}}
+
+/* Project rows with Result panel */
+.project-grid{grid-template-columns:1fr}
+.project{padding:0;display:grid;grid-template-columns:1.35fr 1fr;overflow:hidden}
+.pj-main{padding:26px}
+.pj-result{padding:26px;background:#0a101d;border-left:1px solid var(--line)}
+.pj-result h4{margin:0 0 12px;font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+.pj-result ul{list-style:none;margin:0;padding:0}
+.pj-result li{position:relative;padding:6px 0 6px 24px;color:#c9d3e6;font-size:14.5px;line-height:1.5}
+.pj-result li:before{content:"\2713";position:absolute;left:0;top:6px;color:var(--accent);font-weight:800}
+.pj-result li b{color:var(--warn);font-weight:700}
+@media(max-width:900px){.project{grid-template-columns:1fr}.pj-result{border-left:0;border-top:1px solid var(--line)}}
+
+/* Project links (added): whole card is clickable, matching the existing hover style */
+.project{position:relative}
+.pj-title{color:inherit}
+.pj-title:hover{color:var(--accent)}
+.pj-link{display:inline-flex;gap:6px;align-items:center;margin-top:18px;color:var(--accent);font:700 13px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em}
+.pj-link::after{content:"";position:absolute;inset:0;z-index:1}
+.pj-link:hover{text-decoration:underline}
+.project:has(.pj-link):hover{cursor:pointer}
+.pj-result{position:relative;z-index:0}
+.pj-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="#top">SHASHANK<span>.</span>AI</a>
+    <button class="menu" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#about">About</a><a href="#experience">Experience</a><a href="#systems">Systems</a>
+      <a href="#automation">Automation</a><a href="#skills">Skills</a><a href="#learning">Learning</a><a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<section class="hero">
+<div class="container">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> PYTHON AUTOMATION ENGINEER</div>
+      <h1>Python automation that <span class="gradient">does the work.</span></h1>
+      <p>
+        I build Python automation that replaces repeated manual work — <b>workers, schedulers, APIs, data
+        pipelines, monitoring and reporting</b> — then add AI where it creates leverage, from computer vision
+        and dataset creation to RAG assistants and MCP-powered internal tools.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#systems">Explore my systems →</a>
+        <a class="btn" href="#contact">Let's connect</a>
+        <a class="btn" href="mailto:imshashankmukri@gmail.com">Email me</a>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="signal-top"><span>PYTHON AUTOMATION / SYSTEM STATUS</span><span>● ONLINE</span></div>
+      <div class="terminal">
+        <div><span class="purple">$</span> whoami</div>
+        <div class="green">Shashank I M</div>
+        <div><span class="purple">$</span> focus</div>
+        <div class="blue">Python Automation + AI Automation</div>
+        <div><span class="purple">$</span> build()</div>
+        <div>data → model → API → automation → monitoring → MCP</div>
+        <div><span class="purple">$</span> scale</div>
+        <div><span class="green">100K+</span> samples · <span class="green">140+</span> stores · <span class="green">15+</span> YOLO models</div>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>100K+</b><span>image/video samples processed</span></div>
+    <div class="stat"><b>140+</b><span>retail edge stores monitored</span></div>
+    <div class="stat"><b>15+</b><span>YOLO detection models trained/validated</span></div>
+    <div class="stat"><b>22</b><span>traffic/violation locations monitored</span></div>
+  </div>
+</div>
+</section>
+
+<section id="about">
+<div class="container">
+  <div class="section-label">01 / PROFILE</div>
+  <h2>Python automation, with AI where it adds leverage.</h2>
+  <p class="lead">My strongest work happens where automation meets a real workflow. I build the Python workers, schedulers, APIs, monitoring and reporting that remove manual work — then add AI models and agents where they make the system smarter.</p>
+  <div class="about" style="margin-top:28px">
+    <div class="card">
+      <h3>What I build</h3>
+      <p class="muted">Reusable Python systems for workflow automation, data preparation, monitoring, reporting and AI-assisted operations.</p>
+      <div class="tags">
+        <span class="tag">Python Automation</span><span class="tag">AI Automation</span><span class="tag">AI Agents</span>
+        <span class="tag">MCP</span><span class="tag">Python</span><span class="tag">Computer Vision</span><span class="tag">ML Pipelines</span>
+        <span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">Linux</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>My engineering pattern</h3>
+      <p class="muted">Find repetitive work → automate it with Python → add AI where it creates leverage → expose it through an API/UI → monitor it → make it reusable.</p>
+      <div class="tags">
+        <span class="tag">Data</span><span class="tag">Models</span><span class="tag">APIs</span>
+        <span class="tag">Workers</span><span class="tag">Schedulers</span><span class="tag">Dashboards</span>
+        <span class="tag">Alerts</span><span class="tag">AI Tools</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="experience">
+<div class="container">
+  <div class="section-label">02 / EXPERIENCE</div>
+  <h2>From ML training to Python automation.</h2>
+  <div class="timeline">
+    <div class="job">
+      <div class="job-head"><div class="job-title">AI/ML & Automation Engineer / Prompt Engineer — Benaka IT Solutions</div><div class="date">FEB 2025 — PRESENT</div></div>
+      <ul>
+        <li>Built monitoring automation for <b>140+ retail stores</b> and <b>22 traffic/violation locations</b> in Python, replacing repeated manual checks with scheduled workers, historical records, dashboards and Teams alerts.</li>
+        <li>Built data-collection and dataset-preparation automation using web-portal extraction, model-based sorting, feature extraction, KNN/custom logic, YOLO, SAM/SAM2 and pose-based candidate generation.</li>
+        <li>Processed <b>100K+ image/video samples</b> through collection, cleaning, deduplication, annotation, auto-labeling, organization and training-format conversion.</li>
+        <li>Connected internal systems to AI through <b>MCP</b>, allowing AI clients to inspect operational data, analyze issues and support controlled task-management workflows.</li>
+        <li>Built a model-testing web application where users can select multiple detection/classification models and run detection-only or detection → crop → classification workflows.</li>
+        <li>Trained and validated <b>15+ YOLO-based detection models</b> for helmet/seatbelt violations, PPE, fire/smoke, license plates, train wagons, persons, luggage and heavy-vehicle analytics.</li>
+        <li>Began with classification-model training for seatbelt/no-seatbelt, helmet/no-helmet, vehicle type, PPE/no-PPE, vehicle safety and person-type classification, then expanded into YOLO detection/segmentation, Python automation and AI agents.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-head"><div class="job-title">Machine Learning Intern — Zephyr Technologies & Solutions Pvt Ltd</div><div class="date">AUG 2023 — SEP 2023</div></div>
+      <ul><li>Hands-on machine-learning training in Python covering core algorithms, model building, evaluation and practical ML workflows.</li></ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="systems">
+<div class="container">
+  <div class="section-label">03 / SYSTEMS I BUILT</div>
+  <h2>Python automation systems with AI built in.</h2>
+  <p class="lead">Selected work showing how I combine Python automation, AI and software engineering.</p>
+  <div class="project-grid">
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">01 — AI AUTOMATION / RAG</div>
+        <h3><a class="pj-title" href="projects/rag.html">Reusable Conversational RAG Module</a></h3>
+        <p>A backend-ready RAG system that answers questions from a private knowledge base. LlamaIndex ingests 21 knowledge files into Qdrant using local <code>nomic-embed-text</code> embeddings from Ollama. Answers are generated by a local model (gemma3:1b) or the OpenAI API behind the same interface. Per-user, per-session memory resolves follow-up questions by enriching retrieval with recent turns, with no extra LLM call. Served through FastAPI with a Streamlit test UI and a health endpoint, and the backend never touches vectors, prompts or memory directly.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">LlamaIndex</span><span class="tag">Qdrant</span><span class="tag">Ollama</span><span class="tag">OpenAI API</span><span class="tag">FastAPI</span><span class="tag">Streamlit</span></div>
+        <a class="pj-link" href="projects/rag.html" aria-label="View the Reusable Conversational RAG Module project page">View project <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li><b>One call</b>, <code>rag.ask()</code>, adds RAG to any Python backend</li><li><b>2 LLM backends</b>, local and OpenAI, behind one interface</li><li>Memory isolated per <b>user and session</b></li><li><b>8 error types</b> handled, so a failure never crashes the API</li><li>Every answer returns <b>sources, scores and per-stage latency</b></li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">02 — PYTHON AUTOMATION / MONITORING</div>
+        <h3><a class="pj-title" href="projects/dsi-monitoring.html">DSI Multi-Store Monitoring + MCP</a></h3>
+        <p>Centralized monitoring platform for retail edge environments. Scheduled Python workers continuously check connectivity, edge/cloud event flow, CPU, memory, disk, temperature, ports and RTSP camera snapshots. Data is stored in daily SQLite history, visualized through Streamlit and exposed through MCP.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">SQLite</span><span class="tag">Streamlit</span><span class="tag">Docker</span><span class="tag">MCP</span><span class="tag">RTSP</span><span class="tag">Teams</span></div>
+        <a class="pj-link" href="projects/dsi-monitoring.html" aria-label="View the DSI Multi-Store Monitoring + MCP project page">View project <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li>Full fleet checked <b>every 10 minutes</b>, not in manual hours</li><li><b>20,000+ checks a day</b>, all saved as history</li><li>Teams alerts for <b>device down</b> and <b>events not pushing</b></li><li>Admins query it through <b>Claude via MCP</b></li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">03 — AI AUTOMATION / MODEL TESTING</div>
+        <h3><a class="pj-title" href="projects/multi-model-lab.html">Multi-Model Detection + Classification Lab</a></h3>
+        <p>FastAPI-based browser platform for testing multiple ONNX detection and classification models without writing a separate inference script for every model.</p>
+        <div class="tags"><span class="tag">FastAPI</span><span class="tag">ONNX Runtime</span><span class="tag">Python</span></div>
+        <a class="pj-link" href="projects/multi-model-lab.html" aria-label="View the Multi-Model Detection + Classification Lab project page">View project <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li>Compare <b>model versions</b> before release</li><li>Detection only, or <b>detect → crop → classify</b></li><li><b>No per-model scripts</b> to write</li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">04 — PYTHON AUTOMATION / VISION</div>
+        <h3><a class="pj-title" href="projects/sam2-annotation.html">YOLO → SAM2 → ONNX Pipeline</a></h3>
+        <p>End-to-end pipeline combining object detection/segmentation, SAM2 mask refinement and ONNX classification, producing LabelMe polygon annotations and visual outputs.</p>
+        <div class="tags"><span class="tag">YOLO</span><span class="tag">SAM2</span><span class="tag">TensorRT</span><span class="tag">ONNX</span></div>
+        <a class="pj-link" href="projects/sam2-annotation.html" aria-label="View the YOLO → SAM2 → ONNX Pipeline project page">View project <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li>Manual polygon drawing becomes <b>review only</b></li><li><b>TensorRT → CUDA → CPU</b> fallback, so it runs anywhere</li><li>Outputs <b>LabelMe JSON</b> plus preview images</li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">05 — PYTHON AUTOMATION / MCP</div>
+        <h3><a class="pj-title" href="projects/employee-tracker.html">Employee Tracker + MCP</a></h3>
+        <p>Employee task and work-log application connected to AI through controlled MCP operations for queries, analytics, task assignment and operational workflows.</p>
+        <div class="tags"><span class="tag">Flask</span><span class="tag">SQLite</span><span class="tag">Docker</span><span class="tag">MCP</span></div>
+        <a class="pj-link" href="projects/employee-tracker.html" aria-label="View the Employee Tracker + MCP project page">View project <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li><b>29 MCP tools</b> for users, tasks, logs, analytics</li><li><b>3 roles</b> with access control</li><li>Full <b>audit trail</b>, no arbitrary SQL</li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">06 — PYTHON AUTOMATION / DATA</div>
+        <h3>YOLOv7 Segmentation Dataset Manager</h3>
+        <p>Non-destructive CLI toolkit for label management, quality checks, missing pairs, empty annotations, corrupt images, polygon cropping, YOLO export, dataset splitting and reporting.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">LabelMe</span><span class="tag">YOLOv7</span></div>
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li><b>Non-destructive</b>: originals are never changed</li><li>Finds missing pairs, empty labels, <b>corrupt images</b></li><li>Repeatable <b>commands</b> instead of manual steps</li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">07 — PYTHON AUTOMATION / DEDUPLICATION</div>
+        <h3><a class="pj-title" href="projects/duplicate-remover.html">MobileNet + FAISS Duplicate Remover</a></h3>
+        <p>Two-stage duplicate pipeline using MD5 for exact duplicates and MobileNetV3-Small feature extraction with FAISS similarity clustering for visually similar images.</p>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">MobileNet</span><span class="tag">FAISS</span></div>
+        <a class="pj-link" href="projects/duplicate-remover.html" aria-label="View the MobileNet + FAISS Duplicate Remover project page">View project <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li><b>3 outputs</b>: unique, duplicates, similar</li><li><b>576-dimension</b> embeddings with FAISS clustering</li><li><b>GPU or CPU</b>, no change to the workflow</li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">08 — PYTHON AUTOMATION / TRAFFIC</div>
+        <h3>Traffic & Violation Monitoring</h3>
+        <p>Real-time monitoring architecture using workers for ANPR, FOV, line crossing, violation and ping checks, with scheduler/orchestration, SQLite history, dashboarding and alerting. Also built automation to gather complete event details instead of requiring hours of manual collection.</p>
+        <div class="tags"><span class="tag">ANPR</span><span class="tag">Line Crossing</span><span class="tag">SQLite</span><span class="tag">Streamlit</span><span class="tag">Teams</span></div>
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li><b>22 locations</b> checked continuously</li><li><b>5 worker types</b>: ANPR, FOV, line crossing, violation, ping</li><li>Event details in <b>minutes, not hours</b></li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">09 — PYTHON AUTOMATION / MODELS</div>
+        <h3>Custom YOLOv5/v7 Checkpoint Loader</h3>
+        <p>Built a compatibility layer for custom YOLO checkpoints dependent on training-repository modules, restoring custom classes and exposing a consistent inference interface.</p>
+        
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li>Old models <b>reused with no retraining</b></li><li>Same <b>predict() and names</b> interface for every model</li><li>Works with YOLOv5 and v7 checkpoints</li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">10 — PYTHON AUTOMATION / INTERNAL TOOLS</div>
+        <h3>Streamlit Vision Inference App</h3>
+        <p>Interactive image/video inference application supporting model upload, image size, confidence/IoU controls, device selection, optional SORT tracking, output videos and LabelMe JSON.</p>
+        
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li>Image and <b>video</b> inference in the browser</li><li>Optional <b>SORT tracking</b></li><li>Saves <b>output video and LabelMe JSON</b></li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">11 — PYTHON AUTOMATION / DATASETS</div>
+        <h3>Automated ML Dataset Factory</h3>
+        <p>Combined web data collection, image download, detection, sorting and annotation preparation. Used pose-based logic for mobile-phone-use candidate generation and model-assisted filtering where labeled data was scarce.</p>
+        
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li>Dataset built from <b>zero labelled images</b></li><li><b>100K+ samples</b> prepared across projects</li><li>Human verification <b>kept for quality</b></li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">12 — PYTHON AUTOMATION / VIDEO</div>
+        <h3>Event-Driven Video Dataset Collection</h3>
+        <p>Automated collection of relevant frames from video around line-crossing events, converting long video sources into useful training samples.</p>
+        
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li>Long videos become <b>training frames</b> automatically</li><li>Triggered at the <b>line-crossing event</b></li><li>No manual scrubbing through footage</li></ul>
+      </aside>
+    </article>
+
+    <article class="project">
+      <div class="pj-main">
+        <div class="project-num">13 — PYTHON AUTOMATION / EDGE</div>
+        <h3>Edge & Camera Automation</h3>
+        <p>Hands-on work with RTSP, IP cameras, NVR/DVR systems, Raspberry Pi, Jetson devices, line crossing, person detection, video inference and edge-oriented workflows.</p>
+        
+      </div>
+      <aside class="pj-result" aria-label="Result">
+        <h4>Result</h4>
+        <ul><li>Hands-on with <b>RTSP, IP cameras, NVR/DVR</b></li><li>Edge devices: <b>Raspberry Pi and Jetson</b></li><li>Line crossing and <b>person detection</b> at the edge</li></ul>
+      </aside>
+    </article>
+  </div>
+</div>
+</section>
+
+<section id="automation">
+<div class="container">
+  <div class="section-label">04 / AUTOMATION DNA</div>
+  <h2>My recurring automation architecture.</h2>
+  <p class="lead">Across different projects, the same engineering pattern keeps appearing: turn a manual process into a measurable, reusable and observable Python automation, with AI added where it helps.</p>
+  <div class="arch">
+<pre>
+                 REAL-WORLD PROBLEM
+                         │
+                         ▼
+                 DATA / INFORMATION
+                         │
+              ┌──────────┴──────────┐
+              ▼                     ▼
+        AI / ML MODELS         RULES / LOGIC
+              │                     │
+              └──────────┬──────────┘
+                         ▼
+                    AUTOMATION
+                         │
+          ┌──────────────┼──────────────┐
+          ▼              ▼              ▼
+        API/UI         Workers        Scheduler
+          │              │              │
+          └──────────────┼──────────────┘
+                         ▼
+                 STORAGE / HISTORY
+                         │
+            ┌────────────┼────────────┐
+            ▼            ▼            ▼
+        Dashboard      Alerts       Reports
+                         │
+                         ▼
+                    MCP / AI AGENT
+                         │
+                         ▼
+                 AI-OPERABLE SYSTEM
+</pre>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>100K+</strong><p>image/video samples across collection, cleaning, annotation and dataset workflows.</p></div>
+    <div class="metric"><strong>140+</strong><p>retail stores brought into centralized automated monitoring.</p></div>
+    <div class="metric"><strong>22</strong><p>traffic/violation locations monitored for event/API health.</p></div>
+    <div class="metric"><strong>15+</strong><p>YOLO detection models trained and validated.</p></div>
+    <div class="metric"><strong>9+</strong><p>major technical learning tracks completed through structured coursework.</p></div>
+    <div class="metric"><strong>∞</strong><p>potential when existing software is made AI-operable through MCP and agents.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="skills">
+<div class="container">
+  <div class="section-label">05 / TECH STACK</div>
+  <h2>The toolbox behind the systems.</h2>
+  <div class="skillgrid">
+    <div class="skill"><b>Python Automation</b><span>Python scripting and CLI tools, scheduled workers, background jobs, REST APIs, FastAPI, Flask, Streamlit, SQLite, reporting and alerting.</span></div>
+    <div class="skill"><b>AI Automation</b><span>Workflow automation, scheduled workers, reporting, monitoring automation, AI-assisted operations, tool calling.</span></div>
+    <div class="skill"><b>AI Agents</b><span>RAG, LlamaIndex, Qdrant, Ollama, OpenAI API, MCP, Claude Desktop integration, LangChain, LangGraph, local LLM workflows.</span></div>
+    <div class="skill"><b>Computer Vision</b><span>OpenCV, YOLO, SAM/SAM2, detection, classification, segmentation, pose, tracking, RTSP, ANPR.</span></div>
+    <div class="skill"><b>ML Inference</b><span>PyTorch, ONNX, ONNX Runtime, TensorRT, CUDA, FP16, GPU/CPU fallback.</span></div>
+    <div class="skill"><b>Deployment</b><span>Docker, Docker Compose, Linux/Ubuntu, Conda, systemd, SSH, Tailscale, WireGuard.</span></div>
+    <div class="skill"><b>Data Engineering</b><span>Dataset collection, cleaning, deduplication, annotation, auto-labeling, format conversion, reporting.</span></div>
+    <div class="skill"><b>Web</b><span>HTML, CSS, JavaScript, React, Next.js, Chakra UI.</span></div>
+    <div class="skill"><b>Edge / Video</b><span>Raspberry Pi, Jetson, IP cameras, NVR/DVR, RTSP, line crossing, event-driven video processing.</span></div>
+  </div>
+</div>
+</section>
+
+<section id="learning">
+<div class="container">
+  <div class="section-label">06 / CONTINUOUS LEARNING</div>
+  <h2>Always expanding the stack.</h2>
+  <p class="lead">Structured coursework complements hands-on engineering. These are learning credentials, not substitutes for professional experience or official certifications.</p>
+  <div class="learning">
+    <div class="course"><b>Deep Learning A-Z 2026</b><small>Neural Networks, AI & ChatGPT Prize · 22.5 hrs</small></div>
+    <div class="course"><b>Machine Learning A-Z 2026</b><small>AI, Python & R + ChatGPT Prize · 43 hrs</small></div>
+    <div class="course"><b>Networking Fundamentals</b><small>Your CCNA Start · 79.5 hrs</small></div>
+    <div class="course"><b>CompTIA Security+ Course</b><small>SY0-701 Complete Course & Exam · 31 hrs</small></div>
+    <div class="course"><b>Network Hacking Continued</b><small>Intermediate to Advanced · 10 hrs</small></div>
+    <div class="course"><b>Website Hacking / Pentesting</b><small>Full Web Security Course · 10.5 hrs</small></div>
+    <div class="course"><b>Bug Bounty & Web Security</b><small>Testing From Scratch · 11 hrs</small></div>
+    <div class="course"><b>Ethical Hacking From Scratch</b><small>2024 Edition · 15.5 hrs</small></div>
+    <div class="course"><b>Grafana</b><small>Monitoring & Observability · 6.5 hrs</small></div>
+  </div>
+</div>
+</section>
+
+<section id="education">
+<div class="container">
+  <div class="section-label">07 / EDUCATION</div>
+  <div class="card">
+    <h3>Bachelor of Engineering — Computer Science</h3>
+    <p class="muted">SDM Institute of Technology (SDMIT), Ujire · 2024 · CGPA 7.09</p>
+    <p class="muted">Machine Learning Internship — Zephyr Technologies & Solutions Pvt Ltd · Aug 2023 – Sep 2023</p>
+  </div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+  <div class="cta">
+    <div class="section-label">08 / LET'S BUILD</div>
+    <h2>Have a repetitive workflow? Let's automate it with Python and AI.</h2>
+    <p>I’m interested in Python Automation Engineer, AI Automation Engineer, Automation Developer and AI Agent roles where I can combine Python, software engineering and AI to build systems that remove manual work.</p>
+    <div class="contact-row">
+      <a class="btn primary" href="mailto:imshashankmukri@gmail.com">imshashankmukri@gmail.com</a>
+      <a class="btn" href="https://github.com/ShashankIM" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="https://shashankim.github.io/imshashank/" target="_blank" rel="noopener">Portfolio ↗</a>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div>© <span id="year"></span> Shashank I M · Python Automation Engineer</div>
+  <div style="margin-top:5px">Built around a simple idea: <b>automate the work with Python, then make the automation intelligent.</b></div>
+</div>
+</footer>
+
+<button class="backtop" id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+function toggleMenu(){document.getElementById('navlinks').classList.toggle('open')}
+document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
+document.getElementById('year').textContent=new Date().getFullYear();
+window.addEventListener('scroll',()=>{document.getElementById('backtop').style.display=scrollY>500?'block':'none'});
+</script>
+</body>
+</html>

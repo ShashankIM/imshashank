@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070a12">
+<meta name="description" content="A reusable Retrieval-Augmented Generation system with Qdrant, LlamaIndex, Ollama, per-session memory, FastAPI and a Streamlit test UI.">
+<meta property="og:title" content="Conversational RAG Module | Shashank I M">
+<meta property="og:description" content="A reusable Retrieval-Augmented Generation system with Qdrant, LlamaIndex, Ollama, per-session memory, FastAPI and a Streamlit test UI.">
+<meta property="og:type" content="article">
+<title>Conversational RAG Module | Shashank I M</title>
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="../index.html">SHASHANK<span>.</span>AI</a>
+    <button class="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#overview">Overview</a><a href="#architecture">Architecture</a><a href="#approaches">Approaches</a><a href="#pipeline">Pipeline</a><a href="#stack">Stack</a><a href="#features">Features</a><a href="#deploy">Deploy & API</a><a href="#security">Security</a><a href="#evidence">Demo & roadmap</a><a class="back" href="../index.html#systems">← Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<header class="phero">
+<div class="container">
+  <div class="crumb"><a href="../index.html">PORTFOLIO</a> / <a href="../index.html#systems">SYSTEMS</a> / <b>CONVERSATIONAL RAG</b></div>
+  <div class="eyebrow"><span class="dot"></span> AI Automation · RAG Assistant</div>
+  <h1>Conversational <span class="gradient">RAG</span> Knowledge Assistant</h1>
+  <p class="lead">A reusable Retrieval-Augmented Generation system that combines semantic search, vector storage, conversation memory and language-model inference. It works as an importable Python module or as a separately deployed HTTP API.</p>
+  <div class="actions"><a class="btn primary" href="#overview">Explore the project ↓</a><a class="btn" href="../index.html#systems">← All projects</a></div>
+  <div class="tags"><span class="tag">Python</span><span class="tag">LlamaIndex</span><span class="tag">Qdrant</span><span class="tag">Ollama</span><span class="tag">OpenAI API</span><span class="tag">FastAPI</span><span class="tag">Streamlit</span><span class="tag">Docker</span></div>
+  <div class="stats"><div class='stat'><b>2</b><span>integration approaches: module and API</span></div><div class='stat'><b>768-d</b><span>embedding vectors (nomic-embed-text)</span></div><div class='stat'><b>Top-K 5</b><span>example retrieval setting</span></div><div class='stat'><b>2 LLMs</b><span>local and OpenAI behind one interface</span></div></div>
+</div>
+</header>
+
+<section id="overview"><div class="container"><div class="section-label">01 / Overview</div><h2>Answers grounded in your own knowledge base.</h2><p class="lead-s">The application retrieves relevant chunks from a curated knowledge base and hands them to an LLM as context, instead of relying only on the model's pretrained knowledge.</p><div class="g2"><article class="card"><div class="icon">🧠</div><h3>Knowledge-grounded answers</h3><p>Relevant text chunks are retrieved first, then the LLM generates an answer using that retrieved context.</p></article><article class="card"><div class="icon">💬</div><h3>Conversational context</h3><p>Each conversation is identified by a <code>user_id</code> and <code>session_id</code>. Recent turns help resolve follow-up questions.</p></article><article class="card"><div class="icon">🧩</div><h3>Reusable RAG core</h3><p>Retrieval and generation sit behind a service boundary. Call it directly from Python or expose it through FastAPI.</p></article><article class="card"><div class="icon">🖥️</div><h3>Local and network usage</h3><p>Ollama runs models on the host, Qdrant stores vectors, and the Streamlit UI can run on another machine over a trusted network.</p></article></div><div class="callout "><b>Core idea:</b> RAG = retrieve relevant knowledge first, then generate an answer from it. Vector search and the language model play different roles in the pipeline.</div></div></section><section id="architecture"><div class="container"><div class="section-label">02 / Architecture</div><h2>System architecture</h2><p class="lead-s">High-level view of the network deployment.</p><div class="diagram"><div class="flow"><div class="node">User / Browser<small>asks a question</small></div><div class="arrow">→</div><div class="node">Streamlit UI<small>chat + session IDs</small></div><div class="arrow">→</div><div class="node">FastAPI<small>HTTP endpoint</small></div><div class="arrow">→</div><div class="node">RAGService<small>orchestrates flow</small></div></div><div class="down">↓</div><div class="subflow"><div class="node">SessionMemory<small>history scoped by user / session</small></div><div class="node">LlamaIndex + Ollama<small>embeddings and retrieval</small></div><div class="node">LLM provider<small>Ollama locally, or OpenAI API</small></div></div><div class="down">↓</div><div class="flow"><div class="node">Knowledge documents<small>ingested and chunked</small></div><div class="arrow">→</div><div class="node">Qdrant<small>vector collection</small></div><div class="arrow">→</div><div class="node">Retrieved context<small>top matching chunks</small></div><div class="arrow">→</div><div class="node">Generated answer<small>response + sources</small></div></div></div><div class="callout warn"><b>Deployment note:</b> the FastAPI service runs in Docker, Qdrant in its own container, and Ollama natively on the host to use GPU resources. Container networking URLs depend on the Compose configuration.</div></div></section><section id="approaches"><div class="container"><div class="section-label">03 / Integration</div><h2>Three ways to use the same project</h2><p class="lead-s">Different integration boundaries, shared RAG concepts.</p><div data-tabs><div class="tabs" role="tablist"><button class="tab active" data-tab="module" role="tab" aria-selected="true">A · Python module</button><button class="tab" data-tab="network" role="tab" aria-selected="false">B · Network API + Docker</button><button class="tab" data-tab="provider" role="tab" aria-selected="false">C · LLM provider variant</button></div><div class="tab-panel active" id="panel-module"><div class="g2"><article class="card"><h3>Direct module integration</h3><p>A Python application imports the RAG package and calls its service methods directly. No HTTP hop is needed between the caller and the RAG service.</p><pre>from rag_module import RAGService, RAGConfig
+
+config = RAGConfig(...)
+rag = RAGService(config)
+
+result = rag.chat(
+    user_id="user-001",
+    session_id="conversation-001",
+    question="Which projects have I worked on?"
+)</pre></article><article class="card"><h3>Best suited for</h3><ul class="bullets"><li>Experiments and local development</li><li>Embedding RAG inside a Python application</li><li>Unit testing service logic directly</li><li>Simple single-process deployments</li></ul></article></div><div class="callout ">The snippet illustrates the integration pattern. Match the import path and method signature to the module version you run.</div></div><div class="tab-panel" id="panel-network"><div class="g2"><article class="card"><h3>HTTP service boundary</h3><p>The Streamlit frontend sends JSON requests to a FastAPI service. The API calls the RAG core and returns a structured answer, so clients never import the backend's Python package.</p><pre>Streamlit / another client
+          │ HTTP
+          ▼
+FastAPI :8000
+          │
+          ▼
+RAGService ── Qdrant
+          └── Ollama on host</pre></article><article class="card"><h3>Best suited for</h3><ul class="bullets"><li>Access from multiple computers</li><li>Independent frontend and backend deployments</li><li>Integration with other applications</li><li>Repeatable Docker-based deployment</li><li>A central RAG endpoint on a trusted LAN or VPN</li></ul></article></div><p class="muted" style="margin-top:16px">In the demo setup the RAG API is exposed on port 8000, Qdrant on 6333–6334 and the Streamlit frontend on 8501. The API container reports a healthy status.</p></div><div class="tab-panel" id="panel-provider"><div class="g2"><article class="card"><h3>Local Ollama generation</h3><p>Embeddings and answer generation both use Ollama-hosted models, keeping inference on your own machine or server.</p><pre>Question → nomic-embed-text
+         → Qdrant retrieval
+         → local Ollama LLM
+         → answer</pre></article><article class="card"><h3>OpenAI generation variant</h3><p>Keeps local Ollama embeddings and Qdrant retrieval but sends answer generation to the OpenAI Responses API. It needs a backend-only <code>OPENAI_API_KEY</code> and incurs usage cost.</p><pre>Question → local embedding
+         → Qdrant retrieval
+         → OpenAI Responses API
+         → answer</pre></article></div></div></div></div></section><section id="pipeline"><div class="container"><div class="section-label">04 / Pipeline</div><h2>From documents to a grounded answer</h2><div class="steps"><div class="step"><span class="n">STEP 01</span><b>Prepare knowledge</b><p>Organize source text documents by topic and load them for ingestion.</p></div><div class="step"><span class="n">STEP 02</span><b>Chunk & embed</b><p>LlamaIndex prepares chunks and Ollama's <code>nomic-embed-text</code> turns them into vectors.</p></div><div class="step"><span class="n">STEP 03</span><b>Store vectors</b><p>Qdrant stores vectors with their text and metadata in a collection.</p></div><div class="step"><span class="n">STEP 04</span><b>Retrieve context</b><p>The question is embedded and similarity search returns the top chunks.</p></div><div class="step"><span class="n">STEP 05</span><b>Use memory</b><p>Recent history enriches retrieval for follow-up questions, with no extra LLM call.</p></div><div class="step"><span class="n">STEP 06</span><b>Generate answer</b><p>The configured LLM receives the question, history and retrieved context.</p></div><div class="step"><span class="n">STEP 07</span><b>Return response</b><p>The backend returns the answer, sources, scores and timing metrics.</p></div><div class="step"><span class="n">STEP 08</span><b>Continue session</b><p>The exchange is stored in the user/session memory namespace.</p></div></div><div class="code-title">Simplified request lifecycle</div><pre>User question
+  → validate request and user/session identifiers
+  → read recent session history
+  → construct a contextual retrieval query
+  → embed query using nomic-embed-text
+  → search Qdrant (example top_k = 5)
+  → build prompt with retrieved text + conversation context
+  → call configured LLM
+  → return answer, sources and timing information
+  → update session memory</pre></div></section><section id="stack"><div class="container"><div class="section-label">05 / Technology</div><h2>What each component is responsible for</h2><div class="table-wrap"><table><thead><tr><th>Technology</th><th>Role in this project</th><th>Deployment / notes</th></tr></thead><tbody><tr><td><b>Python</b></td><td>Core implementation, configuration and orchestration</td><td>Application and ingestion environments</td></tr><tr><td><b>Streamlit</b></td><td>Chat UI, user/session fields, history controls, health check</td><td>Example port <code>8501</code></td></tr><tr><td><b>FastAPI</b></td><td>HTTP API and service boundary for chat requests</td><td>Example port <code>8000</code></td></tr><tr><td><b>LlamaIndex</b></td><td>Document/index abstractions, embeddings, vector-store integration</td><td>Used by ingestion and retrieval code</td></tr><tr><td><b>Qdrant</b></td><td>Vector database for semantic similarity search</td><td>Ports <code>6333</code> (HTTP) and <code>6334</code> (gRPC); persistent volume recommended</td></tr><tr><td><b>Ollama</b></td><td>Local model inference and embedding API</td><td>Host service on <code>11434</code>; models include Gemma 3 1B and Llama 3.1 8B</td></tr><tr><td><b>nomic-embed-text</b></td><td>Converts text and questions into embedding vectors</td><td>768-dimensional vectors</td></tr><tr><td><b>Docker / Compose</b></td><td>Packages and runs the API and vector database</td><td>Ollama can stay on the host for GPU access</td></tr><tr><td><b>OpenAI Responses API</b></td><td>Optional alternate answer-generation provider</td><td>Used by the OpenAI module variant</td></tr></tbody></table></div></div></section><section id="features"><div class="container"><div class="section-label">06 / Features</div><h2>Features and capabilities</h2><div class="g3"><article class="card"><div class="icon">🔎</div><h3>Semantic retrieval</h3><p>Finds relevant content by vector similarity, even when the question is phrased differently from the source text.</p><span class="badge">Core RAG</span></article><article class="card"><div class="icon">🧵</div><h3>Session separation</h3><p>Memory is namespaced by <code>(user_id, session_id)</code>, so conversations stay independent.</p><span class="badge">Documented</span></article><article class="card"><div class="icon">📚</div><h3>Source inspection</h3><p>A Sources expander shows source information returned by the backend.</p><span class="badge">UI shown</span></article><article class="card"><div class="icon">⏱️</div><h3>Latency reporting</h3><p>The UI shows embedding, retrieval, LLM and total time for each request.</p><span class="badge">UI shown</span></article><article class="card"><div class="icon">❤️</div><h3>Backend health</h3><p>A frontend control checks whether the configured RAG backend is reachable.</p><span class="badge">UI shown</span></article><article class="card"><div class="icon">🐳</div><h3>Containerized API</h3><p>The API is packaged in Docker and deployable separately from the UI and model runtime.</p><span class="badge">Container shown</span></article><article class="card"><div class="icon">🧹</div><h3>History controls</h3><p>Load conversation history and clear the current conversation from the interface.</p><span class="badge">UI shown</span></article><article class="card"><div class="icon">⚙️</div><h3>Configurable models</h3><p>Embedding model, generation model, retrieval count and timeout are configuration-driven.</p><span class="badge">Documented</span></article><article class="card"><div class="icon">🧯</div><h3>Structured errors</h3><p>Eight error categories cover validation, initialization, embedding, retrieval, LLM, memory and internal failures, so a failure never crashes the API.</p><span class="badge">Documented</span></article></div></div></section><section id="deploy"><div class="container"><div class="section-label">07 / Deployment</div><h2>Deployment, setup and API usage</h2><p class="lead-s">Reference commands from the project documentation.</p><div class="g2"><article class="card"><h3>Prerequisites</h3><ul class="checklist"><li>Python environment with project requirements installed</li><li>Qdrant running and the expected collection populated</li><li>Ollama installed for local inference and embeddings</li><li>Embedding model downloaded in Ollama</li><li>Correct service URLs for host/container networking</li><li>Firewall rules restricted to trusted clients</li></ul></article><article class="card"><h3>Service addresses</h3><div class="table-wrap"><table><thead><tr><th>Service</th><th>Address</th></tr></thead><tbody><tr><td>Streamlit UI</td><td><code>http://localhost:8501</code></td></tr><tr><td>FastAPI</td><td><code>http://localhost:8000</code></td></tr><tr><td>API health</td><td><code>http://localhost:8000/health</code></td></tr><tr><td>API docs</td><td><code>http://localhost:8000/docs</code></td></tr><tr><td>Qdrant</td><td><code>http://localhost:6333</code></td></tr><tr><td>Ollama</td><td><code>http://localhost:11434</code></td></tr></tbody></table></div><p class="muted" style="margin-top:12px;font-size:13px">Use the host address or Docker service name that fits where the caller runs. <code>localhost</code> inside a container means that container.</p></article></div><div class="code-title">Run the network RAG API</div><pre># From the rag_service project directory
+docker compose build
+docker compose up -d
+
+# Check backend health
+curl http://localhost:8000/health
+
+# Inspect running containers
+docker ps</pre><div class="code-title">Run the Streamlit client</div><pre>streamlit run frontend/app.py --server.port 8501</pre><div class="code-title">Example request: POST /api/chat</div><pre>curl -X POST http://localhost:8000/api/chat \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "user_id": "user1",
+    "session_id": "session1",
+    "question": "What experience does Shashank have with computer vision?"
+  }'</pre><div class="callout warn">Reference commands based on the project README. Confirm your folder structure, Compose file, environment variables and health route before running them. For remote access, protect the service with firewall or VPN controls.</div></div></section><section id="security"><div class="container"><div class="section-label">08 / Security</div><h2>Security, privacy and reliability</h2><p class="lead-s">What to put in place before exposing the service beyond a development LAN.</p><div class="g2"><article class="card"><h3>🔐 Protect model and service credentials</h3><ul class="bullets"><li>Never place API keys in frontend code or source control.</li><li>Use environment variables or a secrets manager for backend credentials.</li><li>Do not expose unauthenticated admin endpoints to the public internet.</li></ul></article><article class="card"><h3>🛡️ Restrict network access</h3><ul class="bullets"><li>Bind and firewall ports to match the deployment topology.</li><li>Prefer a trusted LAN or VPN for private deployments.</li><li>Do not expose Qdrant or Ollama to untrusted networks without securing them.</li></ul></article><article class="card"><h3>👥 Enforce session authorization</h3><ul class="bullets"><li>Validate user identity on the backend.</li><li>Do not trust a client-supplied user ID as authentication.</li><li>Verify users can only read their own history.</li><li>Use Redis or a shared store for multiple API workers.</li></ul></article><article class="card"><h3>📏 Evaluate answer quality</h3><ul class="bullets"><li>Inspect retrieved sources and test retrieval relevance.</li><li>Measure unsupported answers and hallucinations.</li><li>Log request IDs and structured errors without leaking data.</li><li>Set timeouts, rate limits and resource limits.</li></ul></article></div><div class="callout red"><b>Privacy reminder:</b> if the knowledge base holds personal or confidential information, retrieval and prompt instructions alone are not authorization controls. Apply access rules in the backend before returning sensitive content.</div></div></section><section id="evidence"><div class="container"><div class="section-label">09 / Demo and roadmap</div><h2>What the demo shows, and what comes next</h2><div class="table-wrap"><table><thead><tr><th>Evidence in the demo</th><th>What it supports</th><th>What it does not prove alone</th></tr></thead><tbody><tr><td>Chat UI with questions and answers</td><td>The frontend submits questions and renders answers.</td><td>That every answer is accurate or fully grounded.</td></tr><tr><td>User ID and Session ID fields</td><td>The UI exposes identifiers for users and conversations.</td><td>That backend access isolation is secure without tests.</td></tr><tr><td>Sources expander</td><td>The UI has a place to display source information.</td><td>That retrieved sources are always relevant.</td></tr><tr><td>Embedding / retrieval / LLM / total timing</td><td>The app reports per-stage latency.</td><td>Stable benchmark performance across workloads.</td></tr><tr><td><code>docker ps</code> output</td><td>RAG API and Qdrant containers were running; the API was healthy.</td><td>End-to-end correctness or production readiness.</td></tr></tbody></table></div><div class="g2 mt"><article class="card"><h3>Near-term</h3><ul class="checklist"><li>Repeatable end-to-end smoke test</li><li>Test multi-user and multi-session separation</li><li>Include source IDs, document names and chunk metadata in responses</li><li>Keep module interface and HTTP schema consistent</li><li>Structured logs and request correlation IDs</li></ul></article><article class="card"><h3>Production hardening</h3><ul class="checklist"><li>Authentication and authorization</li><li>Redis or shared storage for multi-worker memory</li><li>Rate limits, request size limits and timeouts</li><li>Retrieval evaluation dataset and quality tracking</li><li>Monitor health, latency, errors and resource usage</li></ul></article></div></div></section>
+
+<section>
+<div class="container">
+  <div class="pj-nav"><a class="empty" aria-hidden="true" tabindex="-1"><small>.</small><b>.</b></a><a class="next" href="dsi-monitoring.html"><small>Next project →</small><b>DSI Multi-Store Monitoring + MCP</b></a></div>
+</div>
+</section>
+
+<!-- Section: Proof of Project / Visual Evidence -->
+<section id="proof-of-project" style="padding-top: 0;">
+  <div class="container">
+    <div class="section-label">10 / Proof of Project</div>
+    <h2>System Implementation & Execution Evidence</h2>
+    <p class="lead-s">Visual proof of multi-user access, container deployment status, and detailed execution metrics.</p>
+
+    <div class="g3 mt" style="margin-top: 2rem;">
+      <!-- Multi-User Access Image -->
+      <article class="card" style="display: flex; flex-direction: column; gap: 12px;">
+        <h3>Multi-User Accessing RAG</h3>
+        <p class="muted" style="font-size: 14px;">Concurrent user sessions accessing the system with distinct session memory isolation.</p>
+        <div style="overflow: hidden; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <img src="../images/rag/multiuser_accessing.png" alt="Multi user accessing RAG system" style="width: 100%; height: auto; display: block;">
+        </div>
+      </article>
+
+      <!-- Docker Running Image -->
+      <article class="card" style="display: flex; flex-direction: column; gap: 12px;">
+        <h3>Docker Services Running</h3>
+        <p class="muted" style="font-size: 14px;">Healthy RAG API, Qdrant vector database, and networking containers running in Docker.</p>
+        <div style="overflow: hidden; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <img src="../images/rag/docker_running .png" alt="Docker containers running status" style="width: 100%; height: auto; display: block;">
+        </div>
+      </article>
+
+      <!-- Detailed Output Image -->
+      <article class="card" style="display: flex; flex-direction: column; gap: 12px;">
+        <h3>Detailed Output & Latency Metrics</h3>
+        <p class="muted" style="font-size: 14px;">Streamlit frontend response breakdown showing source expanders and stage-by-stage latency JSON.</p>
+        <div style="overflow: hidden; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <img src="../images/rag/detailed_output.png" alt="Detailed RAG system output with latency breakdown" style="width: 100%; height: auto; display: block;">
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+<div class="container">
+  <div class="cta">
+    <div class="section-label">Let's build</div>
+    <h2>Have a repetitive workflow? Let's automate it with Python and AI.</h2>
+    <p>Interested in Python automation, AI automation or AI agent work? I'd be glad to talk.</p>
+    <div class="contact-row">
+      <a class="btn primary" href="mailto:imshashankmukri@gmail.com">imshashankmukri@gmail.com</a>
+      <a class="btn" href="https://github.com/ShashankIM" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="../index.html#contact">Back to portfolio</a>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div>© <span id="year"></span> Shashank I M · Python Automation Engineer</div>
+  <div style="margin-top:5px">Conversational RAG Module · Project case study</div>
+</div>
+</footer>
+
+
+<button class="backtop" id="backtop" aria-label="Back to top">↑</button>
+<script src="../assets/project.js"></script>
+</body>
+</html>

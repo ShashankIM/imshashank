@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070a12">
+<meta name="description" content="Bagalkote Traffic Monitoring System — scheduled traffic analytics collectors, device reachability checks, date-wise SQLite history, alert supervision and a unified Streamlit dashboard.">
+<meta property="og:title" content="Bagalkote Traffic Monitoring System | Shashank I M">
+<meta property="og:description" content="A centralized traffic monitoring case study for ANPR, line crossing, violations, FOV snapshots and camera reachability.">
+<meta property="og:type" content="article">
+<title>Bagalkote Traffic Monitoring System | Shashank I M</title>
+<style>
+:root{--bg:#070a12;--panel:#0c1220;--panel2:#101827;--line:#202b40;--text:#e8eef8;--muted:#9aa8bd;--subtle:#66758c;--cyan:#66e3ff;--blue:#6f8cff;--purple:#b38cff;--green:#63e6ad;--orange:#ffc777;--red:#ff7588;--radius:18px;--max:1120px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#142043 0,transparent 38%),radial-gradient(ellipse at 5% 25%,#0b2330 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
+a{color:inherit;text-decoration:none}.container{width:min(var(--max),calc(100% - 40px));margin:auto}.nav{position:sticky;top:0;z-index:20;background:rgba(7,10,18,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,151,190,.15)}.nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{font-size:1rem;letter-spacing:.08em;font-weight:900;white-space:nowrap}.logo span{color:var(--cyan)}.navlinks{display:flex;align-items:center;gap:20px;font-size:.82rem;color:var(--muted)}.navlinks a:hover{color:var(--cyan)}.navlinks .back{border:1px solid var(--line);border-radius:999px;padding:8px 13px;color:var(--text)}.menu{display:none;background:none;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:1.1rem}
+.hero{padding:82px 0 66px;position:relative;overflow:hidden;border-bottom:1px solid rgba(125,151,190,.14)}.hero:after{content:"";position:absolute;width:440px;height:440px;border:1px solid #233b61;border-radius:50%;right:-160px;top:10px;box-shadow:0 0 0 45px rgba(62,112,177,.035),0 0 0 95px rgba(62,112,177,.025);pointer-events:none}.crumb{font-size:.72rem;letter-spacing:.13em;color:var(--subtle);text-transform:uppercase;margin-bottom:24px}.crumb b{color:var(--cyan)}.eyebrow,.pill{display:inline-flex;align-items:center;gap:9px;border:1px solid #29415a;background:rgba(17,37,57,.65);border-radius:999px;padding:7px 12px;color:#a8eaff;font-size:.76rem;letter-spacing:.04em}.dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 14px var(--green)}h1{font-size:clamp(2.6rem,6vw,5rem);line-height:1.04;letter-spacing:-.055em;margin:24px 0 22px;max-width:900px} .gradient{background:linear-gradient(100deg,var(--cyan),#91a8ff 48%,var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}.lead{max-width:800px;color:#b2bfd2;font-size:1.1rem;line-height:1.8}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #34415a;background:#101827;color:var(--text);padding:11px 17px;border-radius:11px;font-size:.88rem;font-weight:700;transition:.2s}.btn:hover{transform:translateY(-2px);border-color:#7d9bca}.btn.primary{background:linear-gradient(100deg,#8ae9ff,#9eaaff);color:#07101b;border:0}.tags{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.tag{font-size:.74rem;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:rgba(12,18,32,.75);color:#bdcbe0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:35px;max-width:900px}.stat{border:1px solid var(--line);background:rgba(12,18,32,.7);border-radius:14px;padding:17px}.stat b{display:block;font-size:1.2rem;color:var(--cyan);letter-spacing:-.02em}.stat span{font-size:.78rem;color:var(--muted)}
+section{padding:72px 0;border-bottom:1px solid rgba(125,151,190,.12)}.section-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;color:var(--cyan);font-weight:800;margin-bottom:12px}h2{font-size:clamp(1.8rem,3.7vw,2.7rem);line-height:1.16;letter-spacing:-.04em;margin:0 0 28px}h3{font-size:1.08rem;margin:12px 0 9px;letter-spacing:-.015em}p{color:var(--muted);margin:0}.g2,.g3{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.card{padding:23px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,rgba(17,26,43,.92),rgba(9,14,25,.9));box-shadow:0 12px 40px rgba(0,0,0,.12)}.card p{font-size:.91rem;line-height:1.8}.icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,rgba(102,227,255,.14),rgba(179,140,255,.12));border:1px solid #2a455f;color:var(--cyan);font-size:1.25rem}.card ul{padding-left:19px;color:var(--muted)}.card li{padding:5px 0}.diagram{padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(9,14,25,.8);overflow:hidden}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:12px}.node{border:1px solid #30435f;background:linear-gradient(145deg,#111e32,#0b1220);border-radius:13px;padding:16px 12px;text-align:center;font-size:.88rem;font-weight:800;color:#e6f3ff;min-width:0}.node small{display:block;color:var(--muted);font-weight:500;font-size:.73rem;line-height:1.5;margin-top:6px}.arrow,.down{color:var(--cyan);font-size:1.5rem;text-align:center}.down{padding:13px}.subflow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.diagram-note{font-size:.8rem;color:var(--subtle);margin-top:15px}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}table{border-collapse:collapse;width:100%;min-width:650px;background:rgba(10,16,28,.75)}th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);font-size:.85rem;vertical-align:top}th{color:#cfe7ff;background:#111c2e;font-size:.76rem;text-transform:uppercase;letter-spacing:.08em}td{color:var(--muted)}td strong{color:var(--text)}tr:last-child td{border-bottom:0}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.step{border-top:1px solid #314764;padding:18px 8px 8px}.n{display:inline-block;font-size:.75rem;color:var(--cyan);letter-spacing:.1em;font-weight:900;margin-bottom:10px}.step b{display:block;margin-bottom:8px}.step p{font-size:.86rem}.callout{border:1px solid #3a4d6c;background:linear-gradient(110deg,rgba(102,227,255,.07),rgba(179,140,255,.06));padding:20px 22px;border-radius:15px;margin-top:20px;color:#c4d2e5}.callout b{color:var(--cyan)}.checklist{list-style:none;padding:0!important}.checklist li:before{content:"✓";color:var(--green);font-weight:900;margin-right:10px}.pj-nav{display:flex;justify-content:space-between;gap:15px}.pj-nav a{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;padding:14px 17px;max-width:48%}.pj-nav a.next{text-align:right;margin-left:auto}.pj-nav small{color:var(--subtle)}.cta{border:1px solid #30445f;border-radius:22px;padding:clamp(24px,5vw,48px);background:radial-gradient(ellipse at 100% 0%,rgba(111,140,255,.13),transparent 45%),linear-gradient(145deg,#101a2b,#0a101c)}.cta h2{max-width:750px;margin-bottom:15px}.contact-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:23px}footer{padding:28px 0;color:var(--subtle);font-size:.8rem}.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.backtop{position:fixed;right:22px;bottom:22px;width:42px;height:42px;border-radius:12px;background:#16243a;color:var(--cyan);border:1px solid #344a69;cursor:pointer;display:none;font-size:1.2rem}.backtop.show{display:block}
+@media(max-width:900px){.navlinks{gap:12px;font-size:.76rem}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);line-height:1}.stats{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.container{width:min(100% - 28px,var(--max))}.nav-inner{height:64px}.menu{display:block}.navlinks{display:none;position:absolute;left:14px;right:14px;top:60px;padding:16px;background:#0b1220;border:1px solid var(--line);border-radius:14px;flex-direction:column;align-items:stretch}.navlinks.open{display:flex}.navlinks a{padding:7px}.hero{padding:53px 0 45px}.lead{font-size:1rem}.g2,.g3,.subflow{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px}.stat b{font-size:1.05rem}section{padding:52px 0}.card{padding:19px}.diagram{padding:14px}.steps{grid-template-columns:1fr 1fr}.pj-nav{flex-direction:column}.pj-nav a{max-width:100%}.pj-nav a.next{text-align:left;margin-left:0}.hero:after{opacity:.45}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="../index.html">SHASHANK<span>.</span>AI</a>
+    <button class="menu" id="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#overview">Overview</a><a href="#capabilities">Capabilities</a><a href="#architecture">Architecture</a><a href="#workflow">Workflow</a><a href="#storage">Storage</a><a href="#technology">Technology</a><a href="#impact">Impact</a><a class="back" href="../index.html#systems">← Portfolio</a>
+    </div>
+  </div>
+</nav>
+<main id="top">
+<header class="hero">
+<div class="container">
+  <div class="crumb"><a href="../index.html">PORTFOLIO</a> / <a href="../index.html#systems">SYSTEMS</a> / <b>BAGALKOTE MONITORING</b></div>
+  <div class="eyebrow"><span class="dot"></span> Python Automation · Smart City Monitoring</div>
+  <h1>Bagalkote Traffic<br><span class="gradient">Monitoring System.</span></h1>
+  <p class="lead">A centralized monitoring application for a smart-city traffic surveillance deployment. Scheduled Python workers collect ANPR, line-crossing, violation, camera snapshot and network reachability data, while a Streamlit dashboard brings the latest status and event freshness into one operational view.</p>
+  <div class="actions"><a class="btn primary" href="#overview">Explore the project ↓</a><a class="btn" href="../index.html#systems">← All projects</a></div>
+  <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">SQLite</span><span class="tag">Requests / HTTP APIs</span><span class="tag">Paramiko / SSH</span><span class="tag">Scheduled workers</span><span class="tag">Webhook alerts</span><span class="tag">IST / UTC timestamps</span></div>
+  <div class="stats">
+    <div class="stat"><b>5 collectors</b><span>ANPR, FOV, line crossing, violations and ping</span></div>
+    <div class="stat"><b>2 min</b><span>Configured interval for four collection workers</span></div>
+    <div class="stat"><b>15 min</b><span>Supervisor interval and stale threshold</span></div>
+    <div class="stat"><b>30 sec</b><span>Dashboard auto-refresh when enabled</span></div>
+  </div>
+</div>
+</header>
+
+<section id="overview"><div class="container">
+  <div class="section-label">01 / Overview</div><h2>One operational view for traffic analytics and camera health.</h2>
+  <div class="g2">
+    <article class="card"><div class="icon">◎</div><h3>The challenge</h3><p>Traffic analytics are spread across different event types and monitoring endpoints. Checking each source separately makes it harder to identify stale events, failed collection requests, unreachable devices and worker failures from one place.</p></article>
+    <article class="card"><div class="icon">↗</div><h3>The solution</h3><p>Independent Python workers poll configured endpoints and devices on a schedule. They store latest state and collection history in date-wise SQLite databases, while a Streamlit dashboard displays statuses, timestamps, search filters and available camera snapshots.</p></article>
+  </div>
+  <div class="callout">Design principle: <b>collect independently, persist locally, supervise health, and present a unified view.</b> The dashboard reads local database state; its refresh interval is separate from the collector schedule.</div>
+</div></section>
+
+<section id="capabilities"><div class="container">
+  <div class="section-label">02 / Capabilities</div><h2>What the platform monitors</h2>
+  <div class="g3">
+    <article class="card"><div class="icon">⌁</div><h3>ANPR events</h3><p>Collects the latest plate-bearing event per configured device, including event ID, plate text, vehicle type, location and event timestamp.</p></article>
+    <article class="card"><div class="icon">▣</div><h3>FOV snapshots</h3><p>Requests JPEG snapshots for configured stream IDs, stores images in date/location folders and saves their paths and collection status.</p></article>
+    <article class="card"><div class="icon">⇢</div><h3>Line crossing</h3><p>Queries vehicle-crossing events by analytics zone and stores event, vehicle, zone, timestamp and image-path details.</p></article>
+    <article class="card"><div class="icon">⚑</div><h3>Violation monitoring</h3><p>Tracks configured helmet and seatbelt violation categories and maintains current-state and time-series records.</p></article>
+    <article class="card"><div class="icon">⌁</div><h3>Network reachability</h3><p>Connects to a remote host over SSH and runs ping checks against configured camera IP addresses, recording status and latency when available.</p></article>
+    <article class="card"><div class="icon">◉</div><h3>Health supervision</h3><p>Checks worker and event freshness, then sends webhook alerts on unhealthy-state transitions and a recovery notification when the system returns to healthy.</p></article>
+  </div>
+</div></section>
+
+<section id="architecture"><div class="container">
+  <div class="section-label">03 / Architecture</div><h2>From scheduled collection to actionable visibility</h2>
+  <div class="diagram">
+    <div class="flow">
+      <div class="node">Analytics platform + camera network<small>Event APIs · Stream IDs · Camera IPs</small></div><div class="arrow">→</div>
+      <div class="node">Master scheduler<small>Starts workers and records execution results</small></div><div class="arrow">→</div>
+      <div class="node">Python collectors<small>ANPR · FOV · Line crossing · Violations · Ping</small></div><div class="arrow">→</div>
+      <div class="node">SQLite + image files<small>Daily databases · Current state · History</small></div>
+    </div>
+    <div class="down">↓</div>
+    <div class="subflow">
+      <div class="node">Streamlit dashboard<small>Summary counts · Camera cards · Search and filters</small></div>
+      <div class="node">Health supervisor<small>Freshness threshold · State transitions · Webhook alerts</small></div>
+      <div class="node">Logs and history<small>Worker outcomes · Request times · Event times</small></div>
+    </div>
+    <div class="diagram-note">Conceptual data flow based on the supplied Python source files. The supervisor is launched by the master scheduler and reads the local monitoring databases.</div>
+  </div>
+  <div class="g2" style="margin-top:16px">
+    <article class="card"><h3>Collection layer</h3><p>Each worker owns a monitoring concern, loads shared camera configuration, requests data, normalizes fields and writes results to its corresponding database.</p></article>
+    <article class="card"><h3>Presentation and alert layer</h3><p>The dashboard presents local state. The supervisor separately evaluates timestamps and records its previous state to reduce repeated alerts while an incident remains active.</p></article>
+  </div>
+</div></section>
+
+<section id="workflow"><div class="container">
+  <div class="section-label">04 / Workflow</div><h2>How a monitoring cycle works</h2>
+  <div class="steps">
+    <div class="step"><span class="n">01</span><b>Schedule</b><p>The master process determines which worker is due and launches it as a subprocess.</p></div>
+    <div class="step"><span class="n">02</span><b>Collect</b><p>The worker authenticates or connects, requests the latest event/snapshot or runs a reachability check.</p></div>
+    <div class="step"><span class="n">03</span><b>Persist</b><p>Latest state and history are saved with collection status and request timestamps; event times are retained separately where available.</p></div>
+    <div class="step"><span class="n">04</span><b>Observe and alert</b><p>The dashboard renders local data while the supervisor checks freshness and sends incident/recovery notifications on state changes.</p></div>
+  </div>
+</div></section>
+
+<section id="storage"><div class="container">
+  <div class="section-label">05 / Data design</div><h2>Current state plus historical collection records</h2>
+  <p style="max-width:790px;margin-bottom:23px">The database path utility creates date-wise folders using India Standard Time (UTC+05:30). The current tables support fast dashboard reads, while time-series tables retain repeated collection samples.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Database</th><th>Current-state table(s)</th><th>History / support</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><strong>anpr.db</strong></td><td><code>current_status</code></td><td><code>timeseries</code>, <code>session_store</code></td><td>ANPR device state, event details and collection history.</td></tr>
+      <tr><td><strong>fov.db</strong></td><td><code>fov_current</code></td><td><code>fov_timeseries</code>, <code>session_store</code></td><td>Latest snapshot references and snapshot collection history.</td></tr>
+      <tr><td><strong>line_crossing.db</strong></td><td><code>lc_current</code></td><td><code>lc_timeseries</code></td><td>Zone-based line-crossing event status and history.</td></tr>
+      <tr><td><strong>violation.db</strong></td><td><code>vd_type_current</code></td><td><code>vd_type_timeseries</code>, <code>session_store</code></td><td>Latest and historical violation records by tracked type.</td></tr>
+      <tr><td><strong>ping.db</strong></td><td><code>ping_current</code></td><td><code>ping_timeseries</code></td><td>Reachability, latency and check timestamps.</td></tr>
+      <tr><td><strong>master.db</strong></td><td><code>worker_status</code>, <code>supervisor_state</code></td><td><code>worker_logs</code></td><td>Worker schedule/outcomes and last known supervisor state.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="g2" style="margin-top:16px">
+    <article class="card"><h3>Event timestamp</h3><p>Represents when the analytics platform says the event occurred. It is used to reason about event freshness.</p></article>
+    <article class="card"><h3>Request timestamp</h3><p>Represents when the collector checked or saved the result. A recent request with an old event can mean no new events have arrived.</p></article>
+  </div>
+  <div class="callout">Database layout: <b>database/YYYY-MM-DD/*.db</b> · FOV images are stored separately under <b>fov_images/YYYY-MM-DD/&lt;location&gt;/</b>.</div>
+</div></section>
+
+<section id="technology"><div class="container">
+  <div class="section-label">06 / Technology</div><h2>Tools and implementation choices</h2>
+  <div class="card">
+    <div class="tags" style="margin-top:0;margin-bottom:5px">
+      <span class="tag">Python 3</span><span class="tag">Streamlit</span><span class="tag">SQLite</span><span class="tag">Pandas</span><span class="tag">Requests</span><span class="tag">Paramiko / SSH</span><span class="tag">Subprocess scheduling</span><span class="tag">JSON configuration</span><span class="tag">UTC + IST timestamps</span><span class="tag">Webhook notifications</span><span class="tag">Local image storage</span>
+    </div>
+    <p>Core implementation separates API collection, orchestration, local persistence, health checks and UI rendering into individual modules. SQLite avoids requiring a separate database service for this deployment footprint.</p>
+  </div>
+</div></section>
+
+<section id="impact"><div class="container">
+  <div class="section-label">07 / Operational value</div><h2>Why this system is useful</h2>
+  <div class="g2">
+    <article class="card"><h3>For monitoring operators</h3><ul class="checklist"><li>View multiple traffic analytics streams from one dashboard.</li><li>Spot stale event timestamps and collection failures.</li><li>Review recent FOV snapshots when present.</li><li>Search and filter camera/device records quickly.</li><li>Receive webhook alerts for detected health-state transitions.</li></ul></article>
+    <article class="card"><h3>For engineering and maintenance</h3><ul class="checklist"><li>Separate the latest state from historical collection records.</li><li>Track worker run outcomes, errors and timeouts.</li><li>Compare event time with request time during investigation.</li><li>Keep data grouped into day-wise SQLite files.</li><li>Extend the modular worker pattern with additional checks.</li></ul></article>
+  </div>
+  <div class="callout"><b>Important distinction:</b> ping success does not prove a video stream is healthy, and an old event does not alone prove a camera is offline. Use API status, worker logs, event freshness and network reachability together when investigating an incident.</div>
+</div></section>
+
+<section><div class="container">
+  <div class="section-label">08 / Reliability and security</div><h2>Production considerations</h2>
+  <div class="g2">
+    <article class="card"><h3>Reliability improvements</h3><p>Potential next steps include bounded retries with backoff, schema migrations, SQLite busy-timeout/WAL evaluation, database and image retention, and alerts for master-process or disk failures.</p></article>
+    <article class="card"><h3>Security controls</h3><p>Credentials and webhook secrets should be moved out of source files and rotated if exposed. Use verified SSH host keys, least-privilege accounts, restricted dashboard access, and careful handling of stored session cookies and plate data.</p></article>
+  </div>
+</div></section>
+
+<section><div class="container">
+  <div class="pj-nav"><a href="../index.html#systems"><small>← Portfolio</small><b>More engineering projects</b></a><a class="next" href="../index.html#contact"><small>Get in touch →</small><b>Python & AI Automation</b></a></div>
+</div></section>
+<section><div class="container"><div class="cta">
+  <div class="section-label">Let's build</div>
+  <h2>Have a repetitive monitoring workflow? Let's automate it.</h2>
+  <p>Interested in Python automation, monitoring systems and AI-enabled engineering workflows.</p>
+  <div class="contact-row"><a class="btn primary" href="mailto:imshashankmukri@gmail.com">imshashankmukri@gmail.com</a><a class="btn" href="https://github.com/ShashankIM" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="../index.html#contact">Back to portfolio</a></div>
+</div></div></section>
+</main>
+<footer><div class="container footer-inner"><div>© <span id="year"></span> Shashank I M · Python Automation Engineer</div><div>Bagalkote Traffic Monitoring System · Project case study</div></div></footer>
+<button class="backtop" id="backtop" aria-label="Back to top">↑</button>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const menu = document.getElementById('menu');
+const nav = document.getElementById('navlinks');
+menu.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  menu.setAttribute('aria-expanded', String(open));
+  menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false');
+}));
+const topButton = document.getElementById('backtop');
+window.addEventListener('scroll', () => topButton.classList.toggle('show', window.scrollY > 500));
+topButton.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>

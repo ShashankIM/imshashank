@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070a12">
+<meta name="description" content="A centralized monitoring platform for retail edge environments: scheduled Python workers, SQLite history, Streamlit dashboard, Teams alerts and a read-only MCP interface.">
+<meta property="og:title" content="DSI Multi-Store Monitoring + MCP | Shashank I M">
+<meta property="og:description" content="A centralized monitoring platform for retail edge environments: scheduled Python workers, SQLite history, Streamlit dashboard, Teams alerts and a read-only MCP interface.">
+<meta property="og:type" content="article">
+<title>DSI Multi-Store Monitoring + MCP | Shashank I M</title>
+<link rel="stylesheet" href="../assets/project.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="../index.html">SHASHANK<span>.</span>AI</a>
+    <button class="menu" aria-label="Open menu" aria-expanded="false">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="#overview">Overview</a><a href="#monitors">What it monitors</a><a href="#architecture">Architecture</a><a href="#gallery">Screenshots</a><a href="#workflow">Workflow</a><a href="#tech">Technology</a><a href="#impact">Impact</a><a class="back" href="../index.html#systems">← Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<header class="phero">
+<div class="container">
+  <div class="crumb"><a href="../index.html">PORTFOLIO</a> / <a href="../index.html#systems">SYSTEMS</a> / <b>DSI MONITORING</b></div>
+  <div class="eyebrow"><span class="dot"></span> Python Automation · Monitoring</div>
+  <h1>DSI Monitoring System<br><span class="gradient">Visibility across every store.</span></h1>
+  <p class="lead">A centralized monitoring platform that helps operations and engineering teams observe distributed retail stores, detect edge/cloud event delays, inspect infrastructure health and investigate issues from one dashboard.</p>
+  <div class="actions"><a class="btn primary" href="#overview">Explore the project ↓</a><a class="btn" href="../index.html#systems">← All projects</a></div>
+  <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">SQLite</span><span class="tag">Docker</span><span class="tag">MCP</span><span class="tag">RTSP</span><span class="tag">Teams alerts</span><span class="tag">systemd</span></div>
+  <div class="stats"><div class='stat'><b>140+</b><span>retail edge stores monitored</span></div><div class='stat'><b>10 min</b><span>full-fleet check interval</span></div><div class='stat'><b>20,000+</b><span>checks a day, saved as history</span></div><div class='stat'><b>Read-only</b><span>MCP access for AI clients</span></div></div>
+</div>
+</header>
+
+<section id="overview"><div class="container"><div class="section-label">01 / Overview</div><h2>One operational view, many distributed stores.</h2><div class="g2"><article class="card"><div class="icon">◎</div><h3>The challenge</h3><p>When stores, edge devices, cloud services and cameras are spread across many locations, manual checks make it hard to spot failures quickly or see where an issue began.<br><br>Network outages, delayed events, low disk space, hardware stress and camera problems can go unnoticed until someone reports them.</p></article><article class="card"><div class="icon">↗</div><h3>The solution</h3><p>Automated Python workers collect operational data on a schedule, store current and historical results in daily SQLite databases and feed a Streamlit dashboard.<br><br>Alert logic flags prolonged edge/cloud delays, while camera snapshots give visual evidence for investigation.</p></article></div></div></section><section id="monitors"><div class="container"><div class="section-label">02 / Capabilities</div><h2>What the platform monitors</h2><div class="g3"><article class="card"><div class="icon">⌁</div><h3>Connectivity & ports</h3><p>Checks store reachability and verifies configured service ports to spot network or service availability issues.</p></article><article class="card"><div class="icon">⇄</div><h3>Edge vs. cloud events</h3><p>Compares event timestamps and surfaces delays so teams can tell local edge problems from cloud-side ones.</p></article><article class="card"><div class="icon">▤</div><h3>Device health</h3><p>Collects CPU, memory, disk availability and temperature to spot infrastructure risks.</p></article><article class="card"><div class="icon">▣</div><h3>Camera snapshots</h3><p>Collects RTSP snapshots and stores them for visual checks from the dashboard.</p></article><article class="card"><div class="icon">◉</div><h3>Automated alerts</h3><p>A supervisor process evaluates delay thresholds and sends Microsoft Teams notifications.</p></article><article class="card"><div class="icon">⌘</div><h3>MCP data access</h3><p>A read-only MCP interface lets approved tools and AI workflows query structured monitoring data.</p></article></div></div></section><section id="architecture"><div class="container"><div class="section-label">03 / Architecture</div><h2>From scheduled collection to actionable visibility</h2><div class="diagram"><div class="flow"><div class="node">Store registry<small>stores.json · IPs · ports · groups</small></div><div class="arrow">→</div><div class="node">Master scheduler<small>schedules and supervises workers</small></div><div class="arrow">→</div><div class="node">Python workers<small>ping · ports · metrics · events · RTSP</small></div><div class="arrow">→</div><div class="node">SQLite storage<small>daily databases · current + history</small></div></div><div class="down">↓</div><div class="subflow"><div class="node">Streamlit dashboard<small>store status, metrics, snapshots</small></div><div class="node">Alert supervisor<small>threshold checks and Teams alerts</small></div><div class="node">MCP server<small>read-only access for integrations</small></div></div></div></div></section><section id="gallery"><div class="container"><div class="section-label">04 / Gallery</div><h2>See the system in action</h2><p class="lead-s">Click an image to view it larger.</p><div class="gallery"><figure class="shot"><button type="button" data-full="../images/dsi-monitoring/store-monitoring-dashboard.png" aria-label="View Store Monitoring Dashboard larger"><img src="../images/dsi-monitoring/store-monitoring-dashboard.png" alt="DSI store monitoring dashboard" data-name="images/dsi-monitoring/store-monitoring-dashboard.png" loading="lazy"></button><figcaption><strong>Store Monitoring Dashboard</strong><span>Store availability, latency, device metrics, port status, event health and camera snapshots.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/dsi-monitoring/systemd-service-status.png" aria-label="View Background Service & Workers larger"><img src="../images/dsi-monitoring/systemd-service-status.png" alt="Linux systemd service status" data-name="images/dsi-monitoring/systemd-service-status.png" loading="lazy"></button><figcaption><strong>Background Service & Workers</strong><span>The monitoring service with its running scheduler, dashboard and collector processes.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/dsi-monitoring/edge-cloud-status.png" aria-label="View Edge and Cloud Event Status larger"><img src="../images/dsi-monitoring/edge-cloud-status.png" alt="Edge and cloud event status report" data-name="images/dsi-monitoring/edge-cloud-status.png" loading="lazy"></button><figcaption><strong>Edge and Cloud Event Status</strong><span>Grouped status helps identify stores with delayed or missing events.</span></figcaption></figure><figure class="shot"><button type="button" data-full="../images/dsi-monitoring/cloud-events-monitor.png" aria-label="View Cloud Events Monitor larger"><img src="../images/dsi-monitoring/cloud-events-monitor.png" alt="Cloud events monitor dashboard" data-name="images/dsi-monitoring/cloud-events-monitor.png" loading="lazy"></button><figcaption><strong>Cloud Events Monitor</strong><span>Batch-level overview of store events, delay categories and recent request times.</span></figcaption></figure></div></div></section><section id="workflow"><div class="container"><div class="section-label">05 / Workflow</div><h2>How a monitoring cycle works</h2><div class="steps"><div class="step"><span class="n">01</span><b>Collect</b><p>Workers poll configured stores and services on scheduled intervals.</p></div><div class="step"><span class="n">02</span><b>Persist</b><p>Results are recorded in daily SQLite databases with current and historical records.</p></div><div class="step"><span class="n">03</span><b>Evaluate</b><p>The dashboard shows status while alert logic checks configured delay thresholds.</p></div><div class="step"><span class="n">04</span><b>Respond</b><p>Teams notifications and camera snapshots support investigation and faster response.</p></div></div></div></section><section id="tech"><div class="container"><div class="section-label">06 / Technology</div><h2>Tools and components</h2><div class="card"><div class="tags" style="margin-top:0"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">SQLite</span><span class="tag">Requests / HTTP APIs</span><span class="tag">Paramiko / SSH</span><span class="tag">RTSP snapshot collection</span><span class="tag">systemd</span><span class="tag">Docker / Docker Compose</span><span class="tag">Model Context Protocol (MCP)</span><span class="tag">Microsoft Teams webhooks</span></div></div></div></section><section id="impact"><div class="container"><div class="section-label">07 / Impact</div><h2>Operational value</h2><div class="g2"><article class="card"><h3>For operations teams</h3><ul class="checklist"><li>See the health of many stores in one place.</li><li>Identify offline stores and unavailable services faster.</li><li>Review camera snapshots without visiting the store.</li><li>Receive alerts when delay thresholds are exceeded.</li></ul></article><article class="card"><h3>For engineering teams</h3><ul class="checklist"><li>Investigate historical records and recurring incidents.</li><li>Compare edge and cloud event timing.</li><li>Inspect device resource usage and storage availability.</li><li>Expose structured, read-only monitoring data to integrations.</li></ul></article></div><div class="callout ">The system replaces repeated manual checks with scheduled workers, historical records, dashboards and Teams alerts for <b>device down</b> and <b>events not pushing</b>. Admins can also query it through Claude via MCP.</div></div></section>
+
+<section>
+<div class="container">
+  <div class="pj-nav"><a href="rag.html"><small>← Previous project</small><b>Conversational RAG Module</b></a><a class="next" href="multi-model-lab.html"><small>Next project →</small><b>Multi-Model Detection + Classification Lab</b></a></div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="cta">
+    <div class="section-label">Let's build</div>
+    <h2>Have a repetitive workflow? Let's automate it with Python and AI.</h2>
+    <p>Interested in Python automation, AI automation or AI agent work? I'd be glad to talk.</p>
+    <div class="contact-row">
+      <a class="btn primary" href="mailto:imshashankmukri@gmail.com">imshashankmukri@gmail.com</a>
+      <a class="btn" href="https://github.com/ShashankIM" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="../index.html#contact">Back to portfolio</a>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div>© <span id="year"></span> Shashank I M · Python Automation Engineer</div>
+  <div style="margin-top:5px">DSI Multi-Store Monitoring + MCP · Project case study</div>
+</div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded screenshot"><button class="lightbox-close" type="button" aria-label="Close image">×</button><img id="lightbox-image" src="" alt="Expanded screenshot"></div>
+<button class="backtop" id="backtop" aria-label="Back to top">↑</button>
+<script src="../assets/project.js"></script>
+</body>
+</html>
